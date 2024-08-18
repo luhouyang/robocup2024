@@ -1,0 +1,1 @@
+/home/monolith/Desktop/robocup/build/main_package/ament_cmake_environment_hooks/local_setup.bash
