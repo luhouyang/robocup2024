@@ -4,5 +4,9 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"editor.wordWrapColumn": 120,
+		"editor.suggest.matchOnWordStartOnly": false,
+		"xml.format.maxLineWidth": 120
+	}
 }

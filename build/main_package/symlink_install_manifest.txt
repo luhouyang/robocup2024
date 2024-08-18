@@ -1,5 +1,8 @@
 /home/monolith/Desktop/robocup/install/main_package/share/main_package/config/empty.yaml
+/home/monolith/Desktop/robocup/install/main_package/share/main_package/description/inertial_macros.xacro
+/home/monolith/Desktop/robocup/install/main_package/share/main_package/description/materials.xacro
 /home/monolith/Desktop/robocup/install/main_package/share/main_package/description/robot.urdf.xacro
+/home/monolith/Desktop/robocup/install/main_package/share/main_package/description/robot_core.xacro
 /home/monolith/Desktop/robocup/install/main_package/share/main_package/launch/rsp.launch.py
 /home/monolith/Desktop/robocup/install/main_package/share/main_package/worlds/empty.world
 /home/monolith/Desktop/robocup/install/main_package/share/ament_index/resource_index/package_run_dependencies/main_package
