@@ -1,1 +1,0 @@
-/home/monolith/Desktop/robocup/src/main_package/launch/launch_sim.launch.py

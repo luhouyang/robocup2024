@@ -1,9 +1,0 @@
-/home/monolith/Desktop/robocup/build/main_package/CMakeFiles/uninstall.dir
-/home/monolith/Desktop/robocup/build/main_package/CMakeFiles/main_package_uninstall.dir
-/home/monolith/Desktop/robocup/build/main_package/CMakeFiles/test.dir
-/home/monolith/Desktop/robocup/build/main_package/CMakeFiles/edit_cache.dir
-/home/monolith/Desktop/robocup/build/main_package/CMakeFiles/rebuild_cache.dir
-/home/monolith/Desktop/robocup/build/main_package/CMakeFiles/list_install_components.dir
-/home/monolith/Desktop/robocup/build/main_package/CMakeFiles/install.dir
-/home/monolith/Desktop/robocup/build/main_package/CMakeFiles/install/local.dir
-/home/monolith/Desktop/robocup/build/main_package/CMakeFiles/install/strip.dir
