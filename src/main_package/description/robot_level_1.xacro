@@ -1,12 +1,11 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- INCLUDE -->
-    <xacro:include filename="robot_core.xacro" />
-    <xacro:include filename="inertial_macros.xacro" />
-    <xacro:include filename="materials.xacro" />
-
     <!-- ROBOT PROPERTIES -->
+    <xacro:property name="support_height" value="0.225" />
+    <xacro:property name="support_radius" value="0.005" />
+
+    <!-- BASE PLATE -->
 
     <!-- ARM -->
 

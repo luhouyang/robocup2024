@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- INCLUDE -->
-    <xacro:include filename="inertial_macros.xacro" />
-    <xacro:include filename="materials.xacro" />
-
-
     <!-- ROBOT PROPERTIES -->
     <xacro:property name="metal_thickness" value="0.003" />
     <xacro:property name="metal_density" value="7850.0" />
@@ -40,21 +35,11 @@
     <link name="base_link"></link>
 
 
-    <!-- CENTER LINK -->
-    <joint name="center_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="center_link" />
-        <origin xyz="${chassis_inner_length/2} 0 0" />
-    </joint>
-
-    <link name="center_link"></link>
-
-
     <!-- CHASSIS LINK -->
     <joint name="chassis_joint" type="fixed">
         <parent link="base_link" />
         <child link="chassis" />
-        <origin xyz="${chassis_inner_length/2} 0 0" />
+        <origin xyz="0 0 0" />
     </joint>
 
     <link name="chassis">
@@ -85,7 +70,7 @@
     <!-- WHEELS -->
     <!-- left wheel -->
     <joint name="left_wheel_joint" type="continuous">
-        <parent link="chassis" />
+        <parent link="base_link" />
         <child link="left_wheel" />
         <origin
             xyz="-${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
@@ -116,7 +101,7 @@
 
     <!-- front wheel -->
     <joint name="front_wheel_joint" type="continuous">
-        <parent link="chassis" />
+        <parent link="base_link" />
         <child link="front_wheel" />
         <origin
             xyz="${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
@@ -147,7 +132,7 @@
 
     <!-- right wheel -->
     <joint name="right_wheel_joint" type="continuous">
-        <parent link="chassis" />
+        <parent link="base_link" />
         <child link="right_wheel" />
         <origin
             xyz="${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
@@ -178,7 +163,7 @@
 
     <!-- back wheel -->
     <joint name="back_wheel_joint" type="continuous">
-        <parent link="chassis" />
+        <parent link="base_link" />
         <child link="back_wheel" />
         <origin
             xyz="-${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
@@ -213,7 +198,7 @@
     <!-- CORNERS -->
     <!-- left corner -->
     <joint name="frame_left_corner_top_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_left_corner_top" />
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
@@ -245,7 +230,7 @@
     </gazebo>
 
     <joint name="frame_left_corner_bottom_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_left_corner_bottom" />
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"
@@ -278,7 +263,7 @@
 
     <!-- front corner -->
     <joint name="frame_front_corner_top_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_front_corner_top" />
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
@@ -310,7 +295,7 @@
     </gazebo>
 
     <joint name="frame_front_corner_bottom_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_front_corner_bottom" />
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"
@@ -343,7 +328,7 @@
 
     <!-- right corner -->
     <joint name="frame_right_corner_top_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_right_corner_top" />
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
@@ -375,7 +360,7 @@
     </gazebo>
 
     <joint name="frame_right_corner_bottom_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_right_corner_bottom" />
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"
@@ -408,7 +393,7 @@
 
     <!-- back corner -->
     <joint name="frame_back_corner_top_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_back_corner_top" />
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
@@ -440,7 +425,7 @@
     </gazebo>
 
     <joint name="frame_back_corner_bottom_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_back_corner_bottom" />
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"
@@ -474,7 +459,7 @@
     <!-- SIDES -->
     <!-- left-front side -->
     <joint name="frame_left_front_side_top_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_left_front_side_top" />
         <origin
             xyz="0 ${chassis_width/2 - chassis_outer_thickness/2} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
@@ -506,7 +491,7 @@
     </gazebo>
 
     <joint name="frame_left_front_side_bottom_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_left_front_side_bottom" />
         <origin
             xyz="0 ${chassis_width/2 - chassis_outer_thickness/2} ${chassis_clearance + chassis_outer_thickness/2}"
@@ -539,7 +524,7 @@
 
     <!-- front-right side -->
     <joint name="frame_front_right_side_top_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_front_right_side_top" />
         <origin
             xyz="${chassis_length/2 - chassis_outer_thickness/2} 0 ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
@@ -571,7 +556,7 @@
     </gazebo>
 
     <joint name="frame_front_right_side_bottom_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_front_right_side_bottom" />
         <origin
             xyz="${chassis_length/2 - chassis_outer_thickness/2} 0 ${chassis_clearance + chassis_outer_thickness/2}"
@@ -604,7 +589,7 @@
 
     <!-- right-back side -->
     <joint name="frame_right_back_side_top_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_right_back_side_top" />
         <origin
             xyz="0 -${chassis_width/2 - chassis_outer_thickness/2} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
@@ -636,7 +621,7 @@
     </gazebo>
 
     <joint name="frame_right_back_side_bottom_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_right_back_side_bottom" />
         <origin
             xyz="0 -${chassis_width/2 - chassis_outer_thickness/2} ${chassis_clearance + chassis_outer_thickness/2}"
@@ -669,7 +654,7 @@
 
     <!-- back-left side -->
     <joint name="frame_back_left_side_top_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_back_left_side_top" />
         <origin
             xyz="-${chassis_length/2 - chassis_outer_thickness/2} 0 ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
@@ -701,7 +686,7 @@
     </gazebo>
 
     <joint name="frame_back_left_side_bottom_joint" type="fixed">
-        <parent link="center_link" />
+        <parent link="base_link" />
         <child link="frame_back_left_side_bottom" />
         <origin
             xyz="-${chassis_length/2 - chassis_outer_thickness/2} 0 ${chassis_clearance + chassis_outer_thickness/2}"
