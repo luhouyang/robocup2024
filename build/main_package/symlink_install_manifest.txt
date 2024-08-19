@@ -4,6 +4,9 @@
 /home/monolith/Desktop/robocup/install/main_package/share/main_package/description/materials.xacro
 /home/monolith/Desktop/robocup/install/main_package/share/main_package/description/robot.urdf.xacro
 /home/monolith/Desktop/robocup/install/main_package/share/main_package/description/robot_core.xacro
+/home/monolith/Desktop/robocup/install/main_package/share/main_package/description/robot_level_1.xacro
+/home/monolith/Desktop/robocup/install/main_package/share/main_package/description/robot_level_2.xacro
+/home/monolith/Desktop/robocup/install/main_package/share/main_package/description/robot_level_3.xacro
 /home/monolith/Desktop/robocup/install/main_package/share/main_package/launch/launch_sim.launch.py
 /home/monolith/Desktop/robocup/install/main_package/share/main_package/launch/rsp.launch.py
 /home/monolith/Desktop/robocup/install/main_package/share/main_package/worlds/empty.world
