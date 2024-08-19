@@ -7,9 +7,21 @@
 
 ## Follow the Setup Notes
 
-* [Setup Notes](https://github.com/luhouyang/robocup2024/blob/main/notes.md)
+* [Setup Notes](https://github.com/luhouyang/robocup2024/blob/main/notes.md)\
 
-## BUILD & RUN
+## `~/.bashrc` file
+
+```
+#
+# PREDEFINED CONFIGURATIONS
+#
+
+source /opt/ros/humble/setup.bash
+source ~/ydlidar_ros2_driver/install/setup.bash
+# path to ydlidar setup file assuming package is build from source, with project root dir at HOME
+```
+
+## Build & Run
 
 1. Run colcon build in workspace root
    
