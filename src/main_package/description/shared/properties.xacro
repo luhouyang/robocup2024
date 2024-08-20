@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- ROBOT CORE PROPERTIES -->
+    <xacro:property name="metal_thickness" value="0.003" />
+    <xacro:property name="metal_density" value="7850.0" />
+    <!--
+    mass = width * height * metal_thickness * metal_density
+    mass = length * height * metal_thickness * metal_density 
+    -->
+
+    <!-- CHASSIS & FRAME PROPS -->
+    <xacro:property name="chassis_length" value="0.500" />
+    <xacro:property name="chassis_width" value="0.500" />
+
+    <xacro:property name="chassis_inner_length" value="0.272" />
+    <xacro:property name="chassis_inner_width" value="0.272" />
+
+    <xacro:property name="chassis_outer_side" value="0.272" />
+    <xacro:property name="chassis_outer_corner" value="0.162" />
+    <xacro:property name="chassis_outer_thickness" value="0.020" />
+
+    <xacro:property name="chassis_height" value="0.120" />
+    <xacro:property name="chassis_clearance" value="0.030" />
+
+    <xacro:property name="chassis_empty_space_length" value="${(chassis_length - chassis_outer_thickness*4)/3}" />
+    <xacro:property name="chassis_empty_space_width" value="${(chassis_width - chassis_outer_thickness*4)/3}" />
+
+
+    <!-- ROBOT LEVEL 1 PROPERTIES -->
+    <xacro:property name="level_1_height_displacement" value="${chassis_clearance + chassis_height}" />
+
+    <xacro:property name="level_1_base_length" value="0.500" />
+    <xacro:property name="level_1_base_width" value="0.500" />
+
+    <xacro:property name="level_1_support_height" value="0.225" />
+    <xacro:property name="level_1_support_radius" value="0.0075" />
+    <xacro:property name="level_1_support_displacement_x" value="${chassis_length/8}" />
+    <xacro:property name="level_1_support_displacement_y" value="${chassis_width/8}" />
+
+    <xacro:property name="level_1_corner_length" value="${chassis_outer_corner * level_1_base_length / chassis_length}" />
+    <xacro:property name="level_1_corner_width" value="${chassis_outer_corner * level_1_base_width / chassis_width}" />
+    <xacro:property name="level_1_empty_space_length" value="${(level_1_base_length - chassis_outer_thickness*4)/3}" />
+    <xacro:property name="level_1_empty_space_width" value="${(level_1_base_width - chassis_outer_thickness*4)/3}" />
+
+
+    <!-- ROBOT LEVEL 2 PROPERTIES -->
+    <xacro:property name="level_2_height_displacement"
+        value="${level_1_height_displacement + metal_thickness + level_1_support_height}" />
+    <xacro:property name="level_2_length_displacement" value="0.010" />
+
+    <xacro:property name="level_2_base_length" value="0.475" />
+    <xacro:property name="level_2_base_width" value="0.475" />
+
+    <xacro:property name="level_2_support_height" value="0.253" />
+    <xacro:property name="level_2_support_radius" value="0.0075" />
+    <xacro:property name="level_2_support_displacement_x" value="${level_2_base_length/8}" />
+    <xacro:property name="level_2_support_displacement_y" value="${level_2_base_width/8}" />
+
+    <xacro:property name="level_2_corner_length" value="${chassis_outer_corner * level_2_base_length / chassis_length}" />
+    <xacro:property name="level_2_corner_width" value="${chassis_outer_corner * level_2_base_width / chassis_width}" />
+    <xacro:property name="level_2_empty_space_length" value="${(level_2_base_length - chassis_outer_thickness*4)/3}" />
+    <xacro:property name="level_2_empty_space_width" value="${(level_2_base_width - chassis_outer_thickness*4)/3}" />
+
+
+    <!-- ROBOT LEVEL 3 PROPERTIES -->
+    <xacro:property name="level_3_height_displacement"
+        value="${level_2_height_displacement + metal_thickness + level_2_support_height}" />
+    <xacro:property name="level_3_length_displacement" value="0.040" />
+
+    <xacro:property name="level_3_base_length" value="0.240" />
+    <xacro:property name="level_3_base_width" value="0.272" />
+
+    <xacro:property name="level_3_support_height" value="0.253" />
+    <xacro:property name="level_3_support_radius" value="0.0075" />
+    <xacro:property name="level_3_support_displacement_x" value="${level_3_base_length/8}" />
+    <xacro:property name="level_3_support_displacement_y" value="${level_3_base_width/8}" />
+
+</robot>

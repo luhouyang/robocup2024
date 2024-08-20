@@ -1,12 +1,94 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- ROBOT PROPERTIES -->
-
     <!-- CPU -->
 
     <!-- NETWORK INTERFACE -->
 
+    <!-- BASE PLATE -->
+    <xacro:base_plate nameprefix="level_2_base_plate_x" bx="${level_2_base_length}"
+        by="${chassis_inner_width * level_2_base_width / chassis_width}"
+        bz="${metal_thickness}">
+        <origin xyz="0 0 ${level_2_height_displacement + metal_thickness/2}" rpy="0 0 0" />
+    </xacro:base_plate>
+
+    <xacro:base_plate nameprefix="level_2_base_plate_y"
+        bx="${chassis_inner_length * level_2_base_length / chassis_length}" by="${level_2_base_width}"
+        bz="${metal_thickness}">
+        <origin xyz="0 0 ${level_2_height_displacement + metal_thickness/2}" rpy="0 0 0" />
+    </xacro:base_plate>
+
+    <!-- left corner -->
+    <xacro:corner_frame nameprefix="l2_frame_left_corner"
+        bx="${level_2_corner_length}"
+        by="${level_2_corner_width}"
+        bz="${metal_thickness}">
+        <origin
+            xyz="-${level_2_base_length/2 - level_2_empty_space_length/2 - chassis_outer_thickness - level_2_corner_length/2 + level_2_corner_length*135/360} ${level_2_base_width/2 - level_2_empty_space_width/2 - chassis_outer_thickness - level_2_corner_width/2 + level_2_corner_width*135/360} ${level_2_height_displacement + metal_thickness/2}"
+            rpy="0 0 0.785" />
+    </xacro:corner_frame>
+
+    <!-- front corner -->
+    <xacro:corner_frame nameprefix="l2_frame_front_corner"
+        bx="${level_2_corner_length}"
+        by="${level_2_corner_width}"
+        bz="${metal_thickness}">
+        <origin
+            xyz="${level_2_base_length/2 - level_2_empty_space_length/2 - chassis_outer_thickness - level_2_corner_length/2 + level_2_corner_length*135/360} ${level_2_base_width/2 - level_2_empty_space_width/2 - chassis_outer_thickness - level_2_corner_width/2 + level_2_corner_width*135/360} ${level_2_height_displacement + metal_thickness/2}"
+            rpy="0 0 -0.785" />
+    </xacro:corner_frame>
+
+    <!-- right corner -->
+    <xacro:corner_frame nameprefix="l2_frame_right_corner"
+        bx="${level_2_corner_length}"
+        by="${level_2_corner_width}"
+        bz="${metal_thickness}">
+        <origin
+            xyz="${level_2_base_length/2 - level_2_empty_space_length/2 - chassis_outer_thickness - level_2_corner_length/2 + level_2_corner_length*135/360} -${level_2_base_width/2 - level_2_empty_space_width/2 - chassis_outer_thickness - level_2_corner_width/2 + level_2_corner_width*135/360} ${level_2_height_displacement + metal_thickness/2}"
+            rpy="0 0 0.785" />
+    </xacro:corner_frame>
+
+    <!-- back corner -->
+    <xacro:corner_frame nameprefix="l2_frame_back_corner"
+        bx="${level_2_corner_length}"
+        by="${level_2_corner_width}"
+        bz="${metal_thickness}">
+        <origin
+            xyz="-${level_2_base_length/2 - level_2_empty_space_length/2 - chassis_outer_thickness - level_2_corner_length/2 + level_2_corner_length*135/360} -${level_2_base_width/2 - level_2_empty_space_width/2 - chassis_outer_thickness - level_2_corner_width/2 + level_2_corner_width*135/360} ${level_2_height_displacement + metal_thickness/2}"
+            rpy="0 0 -0.785" />
+    </xacro:corner_frame>
+
     <!-- SUPPORT -->
+    <xacro:support_cylinder nameprefix="l2_front_left_support_cylinder"
+        length="${level_2_support_height}"
+        radius="${level_2_support_radius}">
+        <origin
+            xyz="${-chassis_length/2 + level_3_base_length + level_3_length_displacement - level_3_support_displacement_x} ${level_3_base_width/2 - level_3_support_displacement_y} ${level_2_height_displacement + level_2_support_height/2 + metal_thickness}"
+            rpy="0 0 0" />
+    </xacro:support_cylinder>
+
+    <xacro:support_cylinder nameprefix="l2_front_right_support_cylinder"
+        length="${level_2_support_height}"
+        radius="${level_2_support_radius}">
+        <origin
+            xyz="${-chassis_length/2 + level_3_base_length + level_3_length_displacement - level_3_support_displacement_x} -${level_3_base_width/2 - level_3_support_displacement_y} ${level_2_height_displacement + level_2_support_height/2 + metal_thickness}"
+            rpy="0 0 0" />
+    </xacro:support_cylinder>
+
+    <xacro:support_cylinder nameprefix="l2_back_right_support_cylinder"
+        length="${level_2_support_height}"
+        radius="${level_2_support_radius}">
+        <origin
+            xyz="${-chassis_length/2 + level_3_length_displacement + level_3_support_displacement_x} -${level_3_base_width/2 - level_3_support_displacement_y} ${level_2_height_displacement + level_2_support_height/2 + metal_thickness}"
+            rpy="0 0 0" />
+    </xacro:support_cylinder>
+
+    <xacro:support_cylinder nameprefix="l2_back_left_support_cylinder"
+        length="${level_2_support_height}"
+        radius="${level_2_support_radius}">
+        <origin
+            xyz="${-chassis_length/2 + level_3_length_displacement + level_3_support_displacement_x} ${level_3_base_width/2 - level_3_support_displacement_y} ${level_2_height_displacement + level_2_support_height/2 + metal_thickness}"
+            rpy="0 0 0" />
+    </xacro:support_cylinder>
 
 </robot>

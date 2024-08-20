@@ -1,31 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- ROBOT PROPERTIES -->
-    <xacro:property name="metal_thickness" value="0.003" />
-    <xacro:property name="metal_density" value="7850.0" />
-    <!--
-    mass = width * height * metal_thickness * metal_density
-    mass = length * height * metal_thickness * metal_density 
-    -->
-
-    <!-- CHASSIS & FRAME PROPS -->
-    <xacro:property name="chassis_length" value="0.500" />
-    <xacro:property name="chassis_width" value="0.500" />
-
-    <xacro:property name="chassis_inner_length" value="0.272" />
-    <xacro:property name="chassis_inner_width" value="0.272" />
-
-    <xacro:property name="chassis_outer_side" value="0.272" />
-    <xacro:property name="chassis_outer_corner" value="0.162" />
-    <xacro:property name="chassis_outer_thickness" value="0.020" />
-
-    <xacro:property name="chassis_height" value="0.120" />
-    <xacro:property name="chassis_clearance" value="0.030" />
-
-    <xacro:property name="chassis_empty_space_length" value="${(chassis_length - chassis_outer_thickness*4)/3}" />
-    <xacro:property name="chassis_empty_space_width" value="${(chassis_width - chassis_outer_thickness*4)/3}" />
-
     <!-- WHEEL PROPS -->
     <xacro:property name="wheel_radius" value="0.050" />
     <xacro:property name="wheel_thickness" value="0.038" />
@@ -89,7 +64,8 @@
             <geometry>
                 <sphere radius="${wheel_radius}" />
             </geometry>
-        </collision>{pi/2} <xacro:inertial_cylinder
+        </collision>
+        <xacro:inertial_cylinder
             mass="1.0" length="${wheel_thickness}" radius="${wheel_radius}">
             <origin xyz="0 0 0" rpy="0 0 0" />
         </xacro:inertial_cylinder>
@@ -192,529 +168,125 @@
         <material>Gazebo/Blue</material>
     </gazebo>
 
-    <!-- 
-        FRAME 
-    -->
+    <!-- FRAME -->
     <!-- CORNERS -->
     <!-- left corner -->
-    <joint name="frame_left_corner_top_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_left_corner_top" />
+    <xacro:corner_frame nameprefix="frame_left_corner_top" bx="${chassis_outer_corner}" by="${chassis_outer_thickness}"
+        bz="${chassis_outer_thickness}">
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 0.785" />
-    </joint>
+    </xacro:corner_frame>
 
-    <link name="frame_left_corner_top">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_corner * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_corner}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_left_corner_top">
-        <material>Gazebo/White</material>
-    </gazebo>
-
-    <joint name="frame_left_corner_bottom_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_left_corner_bottom" />
+    <xacro:corner_frame nameprefix="frame_left_corner_bottom" bx="${chassis_outer_corner}"
+        by="${chassis_outer_thickness}" bz="${chassis_outer_thickness}">
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"
             rpy="0 0 0.785" />
-    </joint>
-
-    <link name="frame_left_corner_bottom">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_corner * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_corner}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_left_corner_bottom">
-        <material>Gazebo/White</material>
-    </gazebo>
+    </xacro:corner_frame>
 
     <!-- front corner -->
-    <joint name="frame_front_corner_top_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_front_corner_top" />
+    <xacro:corner_frame nameprefix="frame_front_corner_top" bx="${chassis_outer_corner}" by="${chassis_outer_thickness}"
+        bz="${chassis_outer_thickness}">
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 -0.785" />
-    </joint>
+    </xacro:corner_frame>
 
-    <link name="frame_front_corner_top">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_corner * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_corner}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_front_corner_top">
-        <material>Gazebo/White</material>
-    </gazebo>
-
-    <joint name="frame_front_corner_bottom_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_front_corner_bottom" />
+    <xacro:corner_frame nameprefix="frame_front_corner_bottom" bx="${chassis_outer_corner}"
+        by="${chassis_outer_thickness}" bz="${chassis_outer_thickness}">
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"
             rpy="0 0 -0.785" />
-    </joint>
-
-    <link name="frame_front_corner_bottom">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_corner * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_corner}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_front_corner_bottom">
-        <material>Gazebo/White</material>
-    </gazebo>
+    </xacro:corner_frame>
 
     <!-- right corner -->
-    <joint name="frame_right_corner_top_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_right_corner_top" />
+    <xacro:corner_frame nameprefix="frame_right_corner_top" bx="${chassis_outer_corner}" by="${chassis_outer_thickness}"
+        bz="${chassis_outer_thickness}">
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 0.785" />
-    </joint>
+    </xacro:corner_frame>
 
-    <link name="frame_right_corner_top">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_corner * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_corner}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_right_corner_top">
-        <material>Gazebo/White</material>
-    </gazebo>
-
-    <joint name="frame_right_corner_bottom_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_right_corner_bottom" />
+    <xacro:corner_frame nameprefix="frame_right_corner_bottom" bx="${chassis_outer_corner}"
+        by="${chassis_outer_thickness}" bz="${chassis_outer_thickness}">
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"
             rpy="0 0 0.785" />
-    </joint>
-
-    <link name="frame_right_corner_bottom">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_corner * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_corner}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_right_corner_bottom">
-        <material>Gazebo/White</material>
-    </gazebo>
+    </xacro:corner_frame>
 
     <!-- back corner -->
-    <joint name="frame_back_corner_top_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_back_corner_top" />
+    <xacro:corner_frame nameprefix="frame_back_corner_top" bx="${chassis_outer_corner}" by="${chassis_outer_thickness}"
+        bz="${chassis_outer_thickness}">
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 -0.785" />
-    </joint>
+    </xacro:corner_frame>
 
-    <link name="frame_back_corner_top">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_corner * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_corner}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_back_corner_top">
-        <material>Gazebo/White</material>
-    </gazebo>
-
-    <joint name="frame_back_corner_bottom_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_back_corner_bottom" />
+    <xacro:corner_frame nameprefix="frame_back_corner_bottom" bx="${chassis_outer_corner}"
+        by="${chassis_outer_thickness}" bz="${chassis_outer_thickness}">
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"
             rpy="0 0 -0.785" />
-    </joint>
+    </xacro:corner_frame>
 
-    <link name="frame_back_corner_bottom">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_corner} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_corner * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_corner}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_back_corner_bottom">
-        <material>Gazebo/White</material>
-    </gazebo>
 
     <!-- SIDES -->
     <!-- left-front side -->
-    <joint name="frame_left_front_side_top_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_left_front_side_top" />
+    <xacro:side_frame nameprefix="frame_left_front_side_top" bx="${chassis_outer_side}" by="${chassis_outer_thickness}"
+        bz="${chassis_outer_thickness}">
         <origin
             xyz="0 ${chassis_width/2 - chassis_outer_thickness/2} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 0" />
-    </joint>
+    </xacro:side_frame>
 
-    <link name="frame_left_front_side_top">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_side} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_side} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_side * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_side}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_left_front_side_top">
-        <material>Gazebo/White</material>
-    </gazebo>
-
-    <joint name="frame_left_front_side_bottom_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_left_front_side_bottom" />
-        <origin
-            xyz="0 ${chassis_width/2 - chassis_outer_thickness/2} ${chassis_clearance + chassis_outer_thickness/2}"
+    <xacro:side_frame nameprefix="frame_left_front_side_bottom" bx="${chassis_outer_side}"
+        by="${chassis_outer_thickness}" bz="${chassis_outer_thickness}">
+        <origin xyz="0 ${chassis_width/2 - chassis_outer_thickness/2} ${chassis_clearance + chassis_outer_thickness/2}"
             rpy="0 0 0" />
-    </joint>
-
-    <link name="frame_left_front_side_bottom">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_side} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_side} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_side * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_side}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_left_front_side_bottom">
-        <material>Gazebo/White</material>
-    </gazebo>
+    </xacro:side_frame>
 
     <!-- front-right side -->
-    <joint name="frame_front_right_side_top_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_front_right_side_top" />
+    <xacro:side_frame nameprefix="frame_front_right_side_top" bx="${chassis_outer_thickness}" by="${chassis_outer_side}"
+        bz="${chassis_outer_thickness}">
         <origin
             xyz="${chassis_length/2 - chassis_outer_thickness/2} 0 ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 0" />
-    </joint>
+    </xacro:side_frame>
 
-    <link name="frame_front_right_side_top">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_thickness} ${chassis_outer_side} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_thickness} ${chassis_outer_side} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_side * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_thickness}" y="${chassis_outer_side}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_front_right_side_top">
-        <material>Gazebo/White</material>
-    </gazebo>
-
-    <joint name="frame_front_right_side_bottom_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_front_right_side_bottom" />
-        <origin
-            xyz="${chassis_length/2 - chassis_outer_thickness/2} 0 ${chassis_clearance + chassis_outer_thickness/2}"
+    <xacro:side_frame nameprefix="frame_front_right_side_bottom" bx="${chassis_outer_thickness}"
+        by="${chassis_outer_side}" bz="${chassis_outer_thickness}">
+        <origin xyz="${chassis_length/2 - chassis_outer_thickness/2} 0 ${chassis_clearance + chassis_outer_thickness/2}"
             rpy="0 0 0" />
-    </joint>
-
-    <link name="frame_front_right_side_bottom">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_thickness} ${chassis_outer_side} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_thickness} ${chassis_outer_side} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_side * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_thickness}" y="${chassis_outer_side}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_front_right_side_bottom">
-        <material>Gazebo/White</material>
-    </gazebo>
+    </xacro:side_frame>
 
     <!-- right-back side -->
-    <joint name="frame_right_back_side_top_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_right_back_side_top" />
+    <xacro:side_frame nameprefix="frame_right_back_side_top" bx="${chassis_outer_side}" by="${chassis_outer_thickness}"
+        bz="${chassis_outer_thickness}">
         <origin
             xyz="0 -${chassis_width/2 - chassis_outer_thickness/2} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 0" />
-    </joint>
+    </xacro:side_frame>
 
-    <link name="frame_right_back_side_top">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_side} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_side} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_side * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_side}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_right_back_side_top">
-        <material>Gazebo/White</material>
-    </gazebo>
-
-    <joint name="frame_right_back_side_bottom_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_right_back_side_bottom" />
-        <origin
-            xyz="0 -${chassis_width/2 - chassis_outer_thickness/2} ${chassis_clearance + chassis_outer_thickness/2}"
+    <xacro:side_frame nameprefix="frame_right_back_side_bottom" bx="${chassis_outer_side}"
+        by="${chassis_outer_thickness}" bz="${chassis_outer_thickness}">
+        <origin xyz="0 -${chassis_width/2 - chassis_outer_thickness/2} ${chassis_clearance + chassis_outer_thickness/2}"
             rpy="0 0 0" />
-    </joint>
-
-    <link name="frame_right_back_side_bottom">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_side} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_side} ${chassis_outer_thickness} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_side * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_side}" y="${chassis_outer_thickness}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_right_back_side_bottom">
-        <material>Gazebo/White</material>
-    </gazebo>
+    </xacro:side_frame>
 
     <!-- back-left side -->
-    <joint name="frame_back_left_side_top_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_back_left_side_top" />
+    <xacro:side_frame nameprefix="frame_back_left_side_top" bx="${chassis_outer_thickness}" by="${chassis_outer_side}"
+        bz="${chassis_outer_thickness}">
         <origin
             xyz="-${chassis_length/2 - chassis_outer_thickness/2} 0 ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 0" />
-    </joint>
+    </xacro:side_frame>
 
-    <link name="frame_back_left_side_top">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_thickness} ${chassis_outer_side} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_thickness} ${chassis_outer_side} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_side * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_thickness}" y="${chassis_outer_side}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_back_left_side_top">
-        <material>Gazebo/White</material>
-    </gazebo>
-
-    <joint name="frame_back_left_side_bottom_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="frame_back_left_side_bottom" />
+    <xacro:side_frame nameprefix="frame_back_left_side_bottom" bx="${chassis_outer_thickness}"
+        by="${chassis_outer_side}" bz="${chassis_outer_thickness}">
         <origin
             xyz="-${chassis_length/2 - chassis_outer_thickness/2} 0 ${chassis_clearance + chassis_outer_thickness/2}"
             rpy="0 0 0" />
-    </joint>
-
-    <link name="frame_back_left_side_bottom">
-        <visual>
-            <geometry>
-                <box size="${chassis_outer_thickness} ${chassis_outer_side} ${chassis_outer_thickness}" />
-            </geometry>
-            <material name="white" />
-        </visual>
-        <collision>
-            <geometry>
-                <box size="${chassis_outer_thickness} ${chassis_outer_side} ${chassis_outer_thickness}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_box
-            mass="${chassis_outer_side * chassis_outer_thickness * metal_thickness * 4 * metal_density}"
-            x="${chassis_outer_thickness}" y="${chassis_outer_side}"
-            z="${chassis_outer_thickness}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_box>
-    </link>
-
-    <gazebo reference="frame_back_left_side_bottom">
-        <material>Gazebo/White</material>
-    </gazebo>
+    </xacro:side_frame>
 
 </robot>
