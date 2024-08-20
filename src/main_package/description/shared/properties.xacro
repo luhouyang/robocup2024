@@ -1,6 +1,13 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <!--
+        LENGTH: x
+        WIDTH: y
+        HEIGHT: z
+    -->
+
+
     <!-- ROBOT CORE PROPERTIES -->
     <xacro:property name="metal_thickness" value="0.003" />
     <xacro:property name="metal_density" value="7850.0" />
@@ -8,6 +15,7 @@
     mass = width * height * metal_thickness * metal_density
     mass = length * height * metal_thickness * metal_density 
     -->
+
 
     <!-- CHASSIS & FRAME PROPS -->
     <xacro:property name="chassis_length" value="0.500" />
@@ -18,6 +26,7 @@
 
     <xacro:property name="chassis_outer_side" value="0.272" />
     <xacro:property name="chassis_outer_corner" value="0.162" />
+    <xacro:property name="chassis_corner_margin" value="0.080" />
     <xacro:property name="chassis_outer_thickness" value="0.020" />
 
     <xacro:property name="chassis_height" value="0.120" />
@@ -29,6 +38,8 @@
 
     <!-- ROBOT LEVEL 1 PROPERTIES -->
     <xacro:property name="level_1_height_displacement" value="${chassis_clearance + chassis_height}" />
+    <xacro:property name="level_1_length_displacement" value="0.000" />
+    <xacro:property name="level_1_width_displacement" value="0.000" />
 
     <xacro:property name="level_1_base_length" value="0.500" />
     <xacro:property name="level_1_base_width" value="0.500" />
@@ -43,37 +54,136 @@
     <xacro:property name="level_1_empty_space_length" value="${(level_1_base_length - chassis_outer_thickness*4)/3}" />
     <xacro:property name="level_1_empty_space_width" value="${(level_1_base_width - chassis_outer_thickness*4)/3}" />
 
+    <xacro:property name="level_1_center_x"
+        value="${-chassis_length/2 + level_1_length_displacement + level_1_base_length/2}" />
+    <xacro:property name="level_1_center_y"
+        value="${-chassis_width/2 + level_1_width_displacement + level_1_base_width/2}" />
+    <xacro:property name="level_1_center_z"
+        value="${level_1_height_displacement + metal_thickness}" />
+
 
     <!-- ROBOT LEVEL 2 PROPERTIES -->
     <xacro:property name="level_2_height_displacement"
         value="${level_1_height_displacement + metal_thickness + level_1_support_height}" />
-    <xacro:property name="level_2_length_displacement" value="0.010" />
+    <xacro:property name="level_2_length_displacement" value="0.020" />
+    <xacro:property name="level_2_width_displacement" value="0.020" />
 
     <xacro:property name="level_2_base_length" value="0.475" />
     <xacro:property name="level_2_base_width" value="0.475" />
 
     <xacro:property name="level_2_support_height" value="0.253" />
     <xacro:property name="level_2_support_radius" value="0.0075" />
-    <xacro:property name="level_2_support_displacement_x" value="${level_2_base_length/8}" />
-    <xacro:property name="level_2_support_displacement_y" value="${level_2_base_width/8}" />
+    <xacro:property name="level_2_support_displacement_x"
+        value="${(level_2_base_length + chassis_corner_margin)/8}" />
+    <xacro:property name="level_2_support_displacement_y"
+        value="${(level_2_base_width + chassis_corner_margin)/8}" />
 
     <xacro:property name="level_2_corner_length" value="${chassis_outer_corner * level_2_base_length / chassis_length}" />
     <xacro:property name="level_2_corner_width" value="${chassis_outer_corner * level_2_base_width / chassis_width}" />
     <xacro:property name="level_2_empty_space_length" value="${(level_2_base_length - chassis_outer_thickness*4)/3}" />
     <xacro:property name="level_2_empty_space_width" value="${(level_2_base_width - chassis_outer_thickness*4)/3}" />
 
+    <xacro:property name="level_2_center_x"
+        value="${-chassis_length/2 + level_2_length_displacement + level_2_base_length/2}" />
+    <xacro:property name="level_2_center_y"
+        value="${-chassis_width/2 + level_2_width_displacement + level_2_base_width/2}" />
+    <xacro:property name="level_2_center_z"
+        value="${level_2_height_displacement + metal_thickness}" />
+
+
+    <!-- CPU -->
+    <xacro:property name="cpu_length" value="0.105" />
+    <xacro:property name="cpu_width" value="0.145" />
+    <xacro:property name="cpu_height" value="0.040" />
+
+    <xacro:property name="cpu_weight" value="0.400" />
+
+    <xacro:property name="cpu_offset_x" value="-0.070" />
+    <xacro:property name="cpu_offset_y" value="-0.090" />
+
+
+    <!-- NETWORK INTERFACE -->
+    <xacro:property name="network_length" value="0.150" />
+    <xacro:property name="network_width" value="0.060" />
+    <xacro:property name="network_height" value="0.030" />
+
+    <xacro:property name="network_weight" value="0.150" />
+
+    <xacro:property name="network_offset_x" value="-0.070" />
+    <xacro:property name="network_offset_y" value="0.040" />
+
 
     <!-- ROBOT LEVEL 3 PROPERTIES -->
     <xacro:property name="level_3_height_displacement"
         value="${level_2_height_displacement + metal_thickness + level_2_support_height}" />
-    <xacro:property name="level_3_length_displacement" value="0.040" />
+    <xacro:property name="level_3_length_displacement" value="0.065" />
+    <xacro:property name="level_3_width_displacement" value="0.114" />
 
     <xacro:property name="level_3_base_length" value="0.240" />
     <xacro:property name="level_3_base_width" value="0.272" />
 
-    <xacro:property name="level_3_support_height" value="0.253" />
+    <xacro:property name="level_3_support_height" value="0.252" />
     <xacro:property name="level_3_support_radius" value="0.0075" />
     <xacro:property name="level_3_support_displacement_x" value="${level_3_base_length/8}" />
     <xacro:property name="level_3_support_displacement_y" value="${level_3_base_width/8}" />
+
+    <xacro:property name="level_3_center_x"
+        value="${-chassis_length/2 + level_3_length_displacement + level_3_base_length/2}" />
+    <xacro:property name="level_3_center_y"
+        value="${-chassis_width/2 + level_3_width_displacement + level_3_base_width/2}" />
+    <xacro:property name="level_3_center_z"
+        value="${level_3_height_displacement + metal_thickness}" />
+
+
+    <!-- DEPTH CAMERA -->
+    <!-- NAME | x y z | weight | fixture_radius fixture_length -->
+    <!-- intel REALSENSE | 0.026 0.124 0.029 | 0.38 | 0.0125 0.073 -->
+    <xacro:property name="intel_camera_length" value="0.026" />
+    <xacro:property name="intel_camera_width" value="0.124" />
+    <xacro:property name="intel_camera_height" value="0.029" />
+
+    <xacro:property name="intel_camera_and_fixture_weight" value="0.380" />
+
+    <xacro:property name="intel_camera_fixture_radius" value="0.0125" />
+    <xacro:property name="intel_camera_fixture_length" value="0.073" />
+
+
+    <!-- DISPLAY -->
+    <xacro:property name="display_length" value="0.015" />
+    <xacro:property name="display_width" value="0.235" />
+    <xacro:property name="display_height" value="0.145" />
+
+    <xacro:property name="display_weight" value="0.97" />
+
+    <xacro:property name="display_support_radius" value="0.0075" />
+    <xacro:property name="display_support_height" value="0.252" />
+
+    <xacro:property name="display_offset_x" value="-0.100" />
+    <xacro:property name="display_offset_y" value="0.055" />
+
+
+    <!-- MIC -->
+    <xacro:property name="mic_base_length" value="0.010" />
+    <xacro:property name="mic_base_radius" value="0.036" />
+
+    <xacro:property name="mic_support_length" value="0.070" />
+    <xacro:property name="mic_support_radius" value="0.005" />
+
+    <xacro:property name="mic_length" value="0.150" />
+    <xacro:property name="mic_radius" value="0.015" />
+
+    <xacro:property name="mic_weight" value="0.200" />
+
+    <xacro:property name="mic_offset_x" value="0.030" />
+    <xacro:property name="mic_offset_y" value="0.070" />
+
+
+    <!-- STOP BUTTON -->
+    <xacro:property name="stop_button_radius" value="0.018" />
+    <xacro:property name="stop_button_length" value="0.030" />
+    <xacro:property name="stop_button_weight" value="0.046" />
+
+    <xacro:property name="stop_button_offset_y" value="0.080" />
+
 
 </robot>

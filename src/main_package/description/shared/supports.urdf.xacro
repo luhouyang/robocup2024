@@ -2,14 +2,14 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <!-- BASE CORNER -->
-    <xacro:macro name="corner_frame" params="nameprefix bx by bz *origin">
+    <xacro:macro name="corner_frame" params="nameprefix parent bx by bz *origin">
         <joint name="${nameprefix}_joint" type="fixed">
-            <parent link="base_link" />
-            <child link="${nameprefix}" />
+            <parent link="${parent}" />
+            <child link="${nameprefix}_link" />
             <xacro:insert_block name="origin" />
         </joint>
 
-        <link name="${nameprefix}">
+        <link name="${nameprefix}_link">
             <visual>
                 <geometry>
                     <box size="${bx} ${by} ${bz}" />
@@ -29,7 +29,7 @@
             </xacro:inertial_box>
         </link>
 
-        <gazebo reference="${nameprefix}">
+        <gazebo reference="${nameprefix}_link">
             <material>Gazebo/White</material>
         </gazebo>
     </xacro:macro>
@@ -38,11 +38,11 @@
     <xacro:macro name="side_frame" params="nameprefix bx by bz *origin">
         <joint name="${nameprefix}_joint" type="fixed">
             <parent link="base_link" />
-            <child link="${nameprefix}" />
+            <child link="${nameprefix}_link" />
             <xacro:insert_block name="origin" />
         </joint>
 
-        <link name="${nameprefix}">
+        <link name="${nameprefix}_link">
             <visual>
                 <geometry>
                     <box size="${bx} ${by} ${bz}" />
@@ -62,25 +62,25 @@
             </xacro:inertial_box>
         </link>
 
-        <gazebo reference="${nameprefix}">
+        <gazebo reference="${nameprefix}_link">
             <material>Gazebo/White</material>
         </gazebo>
     </xacro:macro>
 
     <!-- SUPPORT CYLINDER -->
-    <xacro:macro name="support_cylinder" params="nameprefix length radius *origin">
+    <xacro:macro name="support_cylinder" params="nameprefix parent length radius *origin">
         <joint name="${nameprefix}_joint" type="fixed">
-            <parent link="base_link" />
-            <child link="${nameprefix}" />
+            <parent link="${parent}" />
+            <child link="${nameprefix}_link" />
             <xacro:insert_block name="origin" />
         </joint>
 
-        <link name="${nameprefix}">
+        <link name="${nameprefix}_link">
             <visual>
                 <geometry>
                     <cylinder radius="${radius}" length="${length}" />
                 </geometry>
-                <material name="white" />
+                <material name="grey" />
             </visual>
             <collision>
                 <geometry>
@@ -94,20 +94,20 @@
             </xacro:inertial_cylinder>
         </link>
 
-        <gazebo reference="${nameprefix}">
+        <gazebo reference="${nameprefix}_link">
             <material>Gazebo/Grey</material>
         </gazebo>
     </xacro:macro>
 
     <!-- BASE PLATE -->
-    <xacro:macro name="base_plate" params="nameprefix bx by bz *origin">
+    <xacro:macro name="base_plate" params="nameprefix parent bx by bz *origin">
         <joint name="${nameprefix}_joint" type="fixed">
-            <parent link="base_link" />
-            <child link="${nameprefix}" />
+            <parent link="${parent}" />
+            <child link="${nameprefix}_link" />
             <xacro:insert_block name="origin" />
         </joint>
 
-        <link name="${nameprefix}">
+        <link name="${nameprefix}_link">
             <visual>
                 <geometry>
                     <box size="${bx} ${by} ${bz}" />
@@ -127,7 +127,7 @@
             </xacro:inertial_box>
         </link>
 
-        <gazebo reference="${nameprefix}">
+        <gazebo reference="${nameprefix}_link">
             <material>Gazebo/White</material>
         </gazebo>
     </xacro:macro>

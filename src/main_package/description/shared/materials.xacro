@@ -1,40 +1,54 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+    <!-- DISPLAY -->
     <material name="black">
         <color rgba="0 0 0 1" />
     </material>
 
+    <!-- SUPPORT -->
+    <material name="grey">
+        <color rgba="0.5 0.5 0.5 1" />
+    </material>
+
+    <!-- MIC -->
+    <material name="dark_grey">
+        <color rgba="0.25 0.25 0.25 1" />
+    </material>
+
+    <!-- MIC -->
+    <material name="orange">
+        <color rgba="1 0.3 0.1 1" />
+    </material>
+
+    <!-- FRAME -->
     <material name="white">
         <color rgba="1 1 1 1" />
     </material>
 
+    <!-- BASE PLATE -->
     <material name="white_transparent">
         <color rgba="1 1 1 0.5" />
     </material>
 
+    <!-- STOP BUTTON -->
     <material name="red">
         <color rgba="1 0 0 1" />
     </material>
 
+    <!-- CPU -->
     <material name="green">
         <color rgba="0.2 1 0.2 1" />
     </material>
 
+    <!-- WHEEL -->
     <material name="blue">
         <color rgba="0.2 0.2 1 1" />
     </material>
 
+    <!-- CAMERA -->
     <material name="yellow">
         <color rgba="1 1 0.6 1" />
-    </material>
-
-    <material name="teal">
-        <color rgba="0.2 0.8 0.7 1" />
-    </material>
-
-    <material name="raspberry">
-        <color rgba="0.7 0.1 0.4 1" />
     </material>
 
 </robot>

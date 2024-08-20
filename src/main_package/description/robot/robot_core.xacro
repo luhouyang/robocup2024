@@ -90,7 +90,7 @@
             <geometry>
                 <cylinder radius="${wheel_radius}" length="${wheel_thickness}" />
             </geometry>
-            <material name="red" />
+            <material name="blue" />
         </visual>
         <collision>
             <geometry>
@@ -103,7 +103,7 @@
     </link>
 
     <gazebo reference="front_wheel">
-        <material>Gazebo/Red</material>
+        <material>Gazebo/Blue</material>
     </gazebo>
 
     <!-- right wheel -->
@@ -168,17 +168,19 @@
         <material>Gazebo/Blue</material>
     </gazebo>
 
+
     <!-- FRAME -->
     <!-- CORNERS -->
     <!-- left corner -->
-    <xacro:corner_frame nameprefix="frame_left_corner_top" bx="${chassis_outer_corner}" by="${chassis_outer_thickness}"
+    <xacro:corner_frame nameprefix="frame_left_corner_top" parent="base_link" bx="${chassis_outer_corner}"
+        by="${chassis_outer_thickness}"
         bz="${chassis_outer_thickness}">
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 0.785" />
     </xacro:corner_frame>
 
-    <xacro:corner_frame nameprefix="frame_left_corner_bottom" bx="${chassis_outer_corner}"
+    <xacro:corner_frame nameprefix="frame_left_corner_bottom" parent="base_link" bx="${chassis_outer_corner}"
         by="${chassis_outer_thickness}" bz="${chassis_outer_thickness}">
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"
@@ -186,14 +188,15 @@
     </xacro:corner_frame>
 
     <!-- front corner -->
-    <xacro:corner_frame nameprefix="frame_front_corner_top" bx="${chassis_outer_corner}" by="${chassis_outer_thickness}"
+    <xacro:corner_frame nameprefix="frame_front_corner_top" parent="base_link" bx="${chassis_outer_corner}"
+        by="${chassis_outer_thickness}"
         bz="${chassis_outer_thickness}">
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 -0.785" />
     </xacro:corner_frame>
 
-    <xacro:corner_frame nameprefix="frame_front_corner_bottom" bx="${chassis_outer_corner}"
+    <xacro:corner_frame nameprefix="frame_front_corner_bottom" parent="base_link" bx="${chassis_outer_corner}"
         by="${chassis_outer_thickness}" bz="${chassis_outer_thickness}">
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} ${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"
@@ -201,14 +204,15 @@
     </xacro:corner_frame>
 
     <!-- right corner -->
-    <xacro:corner_frame nameprefix="frame_right_corner_top" bx="${chassis_outer_corner}" by="${chassis_outer_thickness}"
+    <xacro:corner_frame nameprefix="frame_right_corner_top" parent="base_link" bx="${chassis_outer_corner}"
+        by="${chassis_outer_thickness}"
         bz="${chassis_outer_thickness}">
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 0.785" />
     </xacro:corner_frame>
 
-    <xacro:corner_frame nameprefix="frame_right_corner_bottom" bx="${chassis_outer_corner}"
+    <xacro:corner_frame nameprefix="frame_right_corner_bottom" parent="base_link" bx="${chassis_outer_corner}"
         by="${chassis_outer_thickness}" bz="${chassis_outer_thickness}">
         <origin
             xyz="${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"
@@ -216,14 +220,15 @@
     </xacro:corner_frame>
 
     <!-- back corner -->
-    <xacro:corner_frame nameprefix="frame_back_corner_top" bx="${chassis_outer_corner}" by="${chassis_outer_thickness}"
+    <xacro:corner_frame nameprefix="frame_back_corner_top" parent="base_link" bx="${chassis_outer_corner}"
+        by="${chassis_outer_thickness}"
         bz="${chassis_outer_thickness}">
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_height + chassis_clearance - chassis_outer_thickness/2}"
             rpy="0 0 -0.785" />
     </xacro:corner_frame>
 
-    <xacro:corner_frame nameprefix="frame_back_corner_bottom" bx="${chassis_outer_corner}"
+    <xacro:corner_frame nameprefix="frame_back_corner_bottom" parent="base_link" bx="${chassis_outer_corner}"
         by="${chassis_outer_thickness}" bz="${chassis_outer_thickness}">
         <origin
             xyz="-${chassis_length/2 - chassis_empty_space_length/2 + chassis_outer_thickness*135/360} -${chassis_width/2 - chassis_empty_space_width/2 + chassis_outer_thickness*135/360} ${chassis_clearance + chassis_outer_thickness/2}"

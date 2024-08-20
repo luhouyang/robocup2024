@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="mic"
+        params="nameprefix parent base_length base_radius support_length support_radius mic_length mic_radius mass *origin">
+
+        <!-- base -->
+        <joint name="${nameprefix}_base_joint" type="fixed">
+            <parent link="${parent}" />
+            <child link="${nameprefix}_base_link" />
+            <xacro:insert_block name="origin" />
+        </joint>
+
+        <link name="${nameprefix}_base_link">
+            <visual>
+                <geometry>
+                    <cylinder length="${base_length}" radius="${base_radius}" />
+                </geometry>
+                <material name="dark_grey" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="${base_length}" radius="${base_radius}" />
+                </geometry>
+            </collision>
+            <xacro:inertial_cylinder
+                mass="${mass/4}"
+                length="${base_length}" radius="${base_radius}">
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </xacro:inertial_cylinder>
+        </link>
+
+        <gazebo reference="${nameprefix}_base_link">
+            <material>Gazebo/DarkGrey</material>
+        </gazebo>
+
+        <!-- support -->
+        <joint name="${nameprefix}_support_joint" type="fixed">
+            <parent link="${nameprefix}_base_link" />
+            <child link="${nameprefix}_support_link" />
+            <origin xyz="0 0 ${base_length + support_length/2}" rpy="0 0 0" />
+        </joint>
+
+        <link name="${nameprefix}_support_link">
+            <visual>
+                <geometry>
+                    <cylinder length="${support_length}" radius="${support_radius}" />
+                </geometry>
+                <material name="dark_grey" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="${support_length}" radius="${support_radius}" />
+                </geometry>
+            </collision>
+            <xacro:inertial_cylinder
+                mass="${mass/4}"
+                length="${support_length}" radius="${support_radius}">
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </xacro:inertial_cylinder>
+        </link>
+
+        <gazebo reference="${nameprefix}_support_link">
+            <material>Gazebo/DarkGrey</material>
+        </gazebo>
+
+        <!-- MIC -->
+        <joint name="${nameprefix}_joint" type="fixed">
+            <parent link="${nameprefix}_support_link" />
+            <child link="${nameprefix}_link" />
+            <origin xyz="${mic_length/5} -${mic_length/5} ${support_length/2 + mic_length/5}" rpy="${pi/4} ${pi/4} 0" />
+        </joint>
+
+        <link name="${nameprefix}_link">
+            <visual>
+                <geometry>
+                    <cylinder length="${mic_length}" radius="${mic_radius}" />
+                </geometry>
+                <material name="orange" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder length="${mic_length}" radius="${mic_radius}" />
+                </geometry>
+            </collision>
+            <xacro:inertial_cylinder
+                mass="${mass/2}"
+                length="${mic_length}" radius="${mic_radius}">
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </xacro:inertial_cylinder>
+        </link>
+
+        <gazebo reference="${nameprefix}_link">
+            <material>Gazebo/Orange</material>
+        </gazebo>
+    </xacro:macro>
+
+</robot>

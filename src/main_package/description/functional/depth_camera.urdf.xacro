@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:macro name="depth_camera"
+        params="nameprefix parent camera_length camera_width camera_height mass fixture_radius fixture_length *origin">
+
+        <!-- CAMERA FIXTURE -->
+        <joint name="${nameprefix}_fixture_joint" type="fixed">
+            <parent link="${parent}" />
+            <child link="${nameprefix}_fixture_link" />
+            <xacro:insert_block name="origin" />
+        </joint>
+
+        <link name="${nameprefix}_fixture_link">
+            <visual>
+                <geometry>
+                    <cylinder radius="${fixture_radius}" length="${fixture_length}" />
+                </geometry>
+                <material name="grey" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="${fixture_radius}" length="${fixture_length}" />
+                </geometry>
+            </collision>
+            <xacro:inertial_cylinder
+                mass="${mass}"
+                radius="${fixture_radius}" length="${fixture_length}">
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </xacro:inertial_cylinder>
+        </link>
+
+        <gazebo reference="${nameprefix}_fixture_link">
+            <material>Gazebo/Grey</material>
+        </gazebo>
+
+        <!-- GAZEBO CAMERA -->
+        <joint name="${nameprefix}_joint" type="fixed">
+            <parent link="${nameprefix}_fixture_link" />
+            <child link="${nameprefix}_link" />
+            <origin xyz="0 0 ${camera_height/2 + fixture_length/2}" rpy="0 0 0" />
+        </joint>
+
+        <link name="${nameprefix}_link">
+            <visual>
+                <geometry>
+                    <box size="${camera_length} ${camera_width} ${camera_height}" />
+                </geometry>
+                <material name="yellow" />
+            </visual>
+        </link>
+
+        <!-- ROS2 CAMERA -->
+        <joint name="${nameprefix}_optical_joint" type="fixed">
+            <parent link="${nameprefix}_link" />
+            <child link="${nameprefix}_link_optical" />
+            <origin xyz="0 0 0" rpy="${pi/2} 0 ${-pi/2}" />
+        </joint>
+
+        <link name="${nameprefix}_link_optical"></link>
+
+        <!-- GAZEBO CONFIG -->
+        <gazebo reference="${nameprefix}_link">
+            <material>Gazebo/Yellow</material>
+            <sensor name="${nameprefix}" type="depth">
+                <pose> 0 0 0 0 0 0 </pose>
+                <visualize>true</visualize>
+                <update_rate>10</update_rate>
+                <camera>
+                    <horizontal_fov>1.089</horizontal_fov>
+                    <image>
+                        <format>B8G8R8</format>
+                        <width>1280</width>
+                        <height>720</height>
+                    </image>
+                    <clip>
+                        <near>0.05</near>
+                        <far>8.0</far>
+                    </clip>
+                </camera>
+                <plugin name="${nameprefix}_controller" filename="libgazebo_ros_camera.so">
+                    <frame_name>camera_link_optical</frame_name>
+                    <min_depth>0.1</min_depth>
+                    <max_depth>100.0</max_depth>
+                </plugin>
+            </sensor>
+        </gazebo>
+
+    </xacro:macro>
+
+</robot>

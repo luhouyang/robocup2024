@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- LEVEL 2 CENTER -->
+    <joint name="level_2_center_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="level_2_center_link" />
+        <origin
+            xyz="${level_2_center_x} ${level_2_center_y} ${level_2_center_z}"
+            ryp="0 0 0" />
+    </joint>
+    <!-- <link name="level_2_center_link">
+        <visual>
+            <geometry>
+                <box size="${level_2_base_length} ${level_2_base_width} 0.1" />
+            </geometry>
+            <material name="red" />
+        </visual>
+    </link>
+    <gazebo reference="level_2_center_link">
+        <material>Gazebo/Red</material>
+    </gazebo> -->
+    <link name="level_2_center_link">
+    </link>
+
+
+    <!-- CPU -->
+    <joint name="$cpu_joint" type="fixed">
+        <parent link="level_2_center_link" />
+        <child link="cpu_link" />
+        <origin xyz="${cpu_offset_x} ${cpu_offset_y} ${cpu_height/2}" rpy="0 0 0" />
+    </joint>
+
+    <link name="cpu_link">
+        <visual>
+            <geometry>
+                <box size="${cpu_length} ${cpu_width} ${cpu_height}" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${cpu_length} ${cpu_width} ${cpu_height}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_box
+            mass="${cpu_weight}"
+            x="${cpu_length}" y="${cpu_width}"
+            z="${cpu_height}">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="cpu_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+
+    <!-- NETWORK INTERFACE -->
+    <joint name="$network_joint" type="fixed">
+        <parent link="level_2_center_link" />
+        <child link="network_link" />
+        <origin xyz="${network_offset_x} ${network_offset_y} ${network_height/2}" rpy="0 0 0" />
+    </joint>
+
+    <link name="network_link">
+        <visual>
+            <geometry>
+                <box size="${network_length} ${network_width} ${network_height}" />
+            </geometry>
+            <material name="green" />
+        </visual>
+        <collision>
+            <geometry>
+                <box size="${network_length} ${network_width} ${network_height}" />
+            </geometry>
+        </collision>
+        <xacro:inertial_box
+            mass="${network_weight}"
+            x="${network_length}" y="${network_width}"
+            z="${network_height}">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_box>
+    </link>
+
+    <gazebo reference="network_link">
+        <material>Gazebo/Green</material>
+    </gazebo>
+
+
+    <!-- BASE PLATE -->
+    <xacro:base_plate nameprefix="level_2_base_plate_x"
+        parent="level_2_center_link"
+        bx="${level_2_base_length}"
+        by="${chassis_inner_width * level_2_base_width / chassis_width}"
+        bz="${metal_thickness}">
+        <origin xyz="0 0 ${-metal_thickness/2}"
+            rpy="0 0 0" />
+    </xacro:base_plate>
+
+    <xacro:base_plate nameprefix="level_2_base_plate_y"
+        parent="level_2_center_link"
+        bx="${chassis_inner_length * level_2_base_length / chassis_length}"
+        by="${level_2_base_width}"
+        bz="${metal_thickness}">
+        <origin xyz="0 0 ${-metal_thickness/2}"
+            rpy="0 0 0" />
+    </xacro:base_plate>
+
+    <!-- CORNER -->
+    <!-- left corner -->
+    <xacro:corner_frame nameprefix="l2_frame_left_corner"
+        parent="level_2_center_link"
+        bx="${level_2_corner_length}"
+        by="${level_2_corner_width}"
+        bz="${metal_thickness}">
+        <origin
+            xyz="-${level_2_base_length/2 - level_2_empty_space_length/2 - chassis_outer_thickness - level_2_corner_length/2 + level_2_corner_length*135/360} ${level_2_base_width/2 - level_2_empty_space_width/2 - chassis_outer_thickness - level_2_corner_width/2 + level_2_corner_width*135/360} ${-metal_thickness/2}"
+            rpy="0 0 0.785" />
+    </xacro:corner_frame>
+
+    <!-- front corner -->
+    <xacro:corner_frame nameprefix="l2_frame_front_corner"
+        parent="level_2_center_link"
+        bx="${level_2_corner_length}"
+        by="${level_2_corner_width}"
+        bz="${metal_thickness}">
+        <origin
+            xyz="${level_2_base_length/2 - level_2_empty_space_length/2 - chassis_outer_thickness - level_2_corner_length/2 + level_2_corner_length*135/360} ${level_2_base_width/2 - level_2_empty_space_width/2 - chassis_outer_thickness - level_2_corner_width/2 + level_2_corner_width*135/360} ${-metal_thickness/2}"
+            rpy="0 0 -0.785" />
+    </xacro:corner_frame>
+
+    <!-- right corner -->
+    <xacro:corner_frame nameprefix="l2_frame_right_corner"
+        parent="level_2_center_link"
+        bx="${level_2_corner_length}"
+        by="${level_2_corner_width}"
+        bz="${metal_thickness}">
+        <origin
+            xyz="${level_2_base_length/2 - level_2_empty_space_length/2 - chassis_outer_thickness - level_2_corner_length/2 + level_2_corner_length*135/360} -${level_2_base_width/2 - level_2_empty_space_width/2 - chassis_outer_thickness - level_2_corner_width/2 + level_2_corner_width*135/360} ${-metal_thickness/2}"
+            rpy="0 0 0.785" />
+    </xacro:corner_frame>
+
+    <!-- back corner -->
+    <xacro:corner_frame nameprefix="l2_frame_back_corner"
+        parent="level_2_center_link"
+        bx="${level_2_corner_length}"
+        by="${level_2_corner_width}"
+        bz="${metal_thickness}">
+        <origin
+            xyz="-${level_2_base_length/2 - level_2_empty_space_length/2 - chassis_outer_thickness - level_2_corner_length/2 + level_2_corner_length*135/360} -${level_2_base_width/2 - level_2_empty_space_width/2 - chassis_outer_thickness - level_2_corner_width/2 + level_2_corner_width*135/360} ${-metal_thickness/2}"
+            rpy="0 0 -0.785" />
+    </xacro:corner_frame>
+
+
+    <!-- SUPPORT -->
+    <xacro:support_cylinder nameprefix="l2_front_left_support_cylinder"
+        parent="level_3_center_link"
+        length="${level_2_support_height}"
+        radius="${level_2_support_radius}">
+        <origin
+            xyz="${level_3_base_length/2 - level_3_support_displacement_x} ${level_3_base_width/2 - level_3_support_displacement_y} ${-level_2_support_height/2 - metal_thickness}"
+            rpy="0 0 0" />
+    </xacro:support_cylinder>
+
+    <xacro:support_cylinder nameprefix="l2_front_right_support_cylinder"
+        parent="level_3_center_link"
+        length="${level_2_support_height}"
+        radius="${level_2_support_radius}">
+        <origin
+            xyz="${level_3_base_length/2 - level_3_support_displacement_x} ${-level_3_base_width/2 + level_3_support_displacement_y} ${-level_2_support_height/2 - metal_thickness}"
+            rpy="0 0 0" />
+    </xacro:support_cylinder>
+
+    <xacro:support_cylinder nameprefix="l2_back_right_support_cylinder"
+        parent="level_3_center_link"
+        length="${level_2_support_height}"
+        radius="${level_2_support_radius}">
+        <origin
+            xyz="${-level_3_base_length/2 + level_3_support_displacement_x} ${-level_3_base_width/2 + level_3_support_displacement_y} ${-level_2_support_height/2 - metal_thickness}"
+            rpy="0 0 0" />
+    </xacro:support_cylinder>
+
+    <xacro:support_cylinder nameprefix="l2_back_left_support_cylinder"
+        parent="level_3_center_link"
+        length="${level_2_support_height}"
+        radius="${level_2_support_radius}">
+        <origin
+            xyz="${-level_3_base_length/2 + level_3_support_displacement_x} ${level_3_base_width/2 - level_3_support_displacement_y} ${-level_2_support_height/2 - metal_thickness}"
+            rpy="0 0 0" />
+    </xacro:support_cylinder>
+
+</robot>

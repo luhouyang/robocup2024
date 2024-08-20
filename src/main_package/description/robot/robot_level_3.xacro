@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- LEVEL 3 CENTER -->
+    <joint name="level_3_center_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="level_3_center_link" />
+        <origin
+            xyz="${level_3_center_x} ${level_3_center_y} ${level_3_center_z}"
+            ryp="0 0 0" />
+    </joint>
+    <!-- <link name="level_3_center_link">
+        <visual>
+            <geometry>
+                <box size="${level_3_base_length} ${level_3_base_width} 0.1" />
+            </geometry>
+            <material name="red" />
+        </visual>
+    </link>
+    <gazebo reference="level_3_center_link">
+        <material>Gazebo/Red</material>
+    </gazebo> -->
+    <link name="level_3_center_link">
+    </link>
+
+
+    <!-- DISPLAY -->
+    <joint name="display_camera_top_joint" type="fixed">
+        <parent link="level_3_center_link" />
+        <child link="display_camera_top_link" />
+        <origin xyz="${display_offset_x} 0 ${display_support_height}" rpy="0 0 0" />
+    </joint>
+    <link name="display_camera_top_link"></link>
+
+    <xacro:display nameprefix="display"
+        parent="display_camera_top_link"
+        bx="${display_length}"
+        by="${display_width}"
+        bz="${display_height}"
+        mass="${display_weight}">
+        <origin xyz="${display_support_radius + display_length/2} 0 -${display_height/2}" rpy="0 0 0" />
+    </xacro:display>
+
+    <!-- DISPLAY SUPPORT -->
+    <xacro:support_cylinder nameprefix="l3_left_support_cylinder"
+        parent="level_3_center_link"
+        length="${display_support_height}"
+        radius="${display_support_radius}">
+        <origin xyz="${display_offset_x} ${display_offset_y} ${display_support_height/2}" rpy="0 0 0" />
+    </xacro:support_cylinder>
+
+    <xacro:support_cylinder nameprefix="l3_middle_support_cylinder"
+        parent="level_3_center_link"
+        length="${display_support_height}"
+        radius="${display_support_radius}">
+        <origin xyz="${display_offset_x} 0 ${display_support_height/2}" rpy="0 0 0" />
+    </xacro:support_cylinder>
+
+    <xacro:support_cylinder nameprefix="l3_right_support_cylinder"
+        parent="level_3_center_link"
+        length="${display_support_height}"
+        radius="${display_support_radius}">
+        <origin xyz="${display_offset_x} -${display_offset_y} ${display_support_height/2}" rpy="0 0 0" />
+    </xacro:support_cylinder>
+
+
+    <!-- CAMERA -->
+    <xacro:depth_camera nameprefix="camera_1"
+        parent="display_camera_top_link"
+        camera_length="${intel_camera_length}"
+        camera_width="${intel_camera_width}"
+        camera_height="${intel_camera_height}"
+        mass="${intel_camera_and_fixture_weight}"
+        fixture_radius="${intel_camera_fixture_radius}"
+        fixture_length="${intel_camera_fixture_length}">
+        <origin xyz="0 0 ${intel_camera_fixture_length/2}" rpy="0 0 0" />
+    </xacro:depth_camera>
+
+    <xacro:depth_camera nameprefix="camera_2"
+        parent="level_3_center_link"
+        camera_length="${intel_camera_length}"
+        camera_width="${intel_camera_width}"
+        camera_height="${intel_camera_height}"
+        mass="${intel_camera_and_fixture_weight}"
+        fixture_radius="${intel_camera_fixture_radius}"
+        fixture_length="${intel_camera_fixture_length}">
+        <origin xyz="${level_3_base_length/2 - intel_camera_fixture_radius} 0 ${intel_camera_fixture_length/2}"
+            rpy="0 0 0" />
+    </xacro:depth_camera>
+
+
+    <!-- MIC -->
+    <xacro:mic nameprefix="mic"
+        parent="level_3_center_link"
+        base_length="${mic_base_length}"
+        base_radius="${mic_base_radius}"
+        support_length="${mic_support_length}"
+        support_radius="${mic_support_radius}"
+        mic_length="${mic_length}"
+        mic_radius="${mic_radius}"
+        mass="${mic_weight}">
+        <origin xyz="${mic_offset_x} -${mic_offset_y} ${mic_base_length/2}" rpy="0 0 0" />
+    </xacro:mic>
+
+
+    <!-- STOP BUTTON -->
+    <xacro:stop_button nameprefix="stop_button"
+        parent="level_3_center_link"
+        length="${stop_button_length}"
+        radius="${stop_button_radius}"
+        mass="${stop_button_weight}">
+        <origin xyz="${stop_button_radius} ${stop_button_offset_y + stop_button_radius} ${stop_button_length/2}"
+            rpy="0 0 0" />
+    </xacro:stop_button>
+
+
+    <!-- BASE PLATE -->
+    <xacro:base_plate nameprefix="level_3_base_plate"
+        parent="level_3_center_link"
+        bx="${level_3_base_length}"
+        by="${level_3_base_width}"
+        bz="${metal_thickness}">
+        <origin
+            xyz="0 0 ${-metal_thickness/2}"
+            rpy="0 0 0" />
+    </xacro:base_plate>
+
+</robot>
