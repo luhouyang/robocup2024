@@ -7,7 +7,7 @@
 
 ## Follow the Setup Notes
 
-* [Setup Notes](https://github.com/luhouyang/robocup2024/blob/main/notes.md)\
+* [Setup Notes](https://github.com/luhouyang/robocup2024/blob/main/notes.md)
 
 ## `~/.bashrc` file
 
