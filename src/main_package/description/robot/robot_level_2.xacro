@@ -24,6 +24,9 @@
     </link>
 
 
+    <!-- ARM -->
+
+
     <!-- CPU -->
     <joint name="$cpu_joint" type="fixed">
         <parent link="level_2_center_link" />

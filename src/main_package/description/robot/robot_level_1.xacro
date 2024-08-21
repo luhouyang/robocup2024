@@ -24,10 +24,15 @@
     </link>
 
 
-    <!-- ARM -->
-
-
     <!-- LIDAR -->
+    <xacro:lidar nameprefix="laser"
+        parent="level_1_center_link"
+        length="${lidar_length}"
+        radius="${lidar_radius}"
+        mass="${lidar_weight}">
+        <origin xyz="0 0 ${lidar_length/2}" rpy="0 0 0" />
+        <frame_name>laser_frame</frame_name>
+    </xacro:lidar>
 
 
     <!-- BASE PLATE -->

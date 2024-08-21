@@ -54,16 +54,22 @@ source ~/ydlidar_ros2_driver/install/setup.bash
     "editor.formatOnSaveMode": "file",
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "eeyore.yapf",
-    "editor.formatOnType": false
+    "editor.formatOnType": false,
   },
+  "yapf.args": [
+    "--style={based_on_style: google, column_limit: 80, indent_width: 4}",
+    "--style={based_on_style: pep8; DEDENT_CLOSING_BRACKETS: True}",
+    "--style={based_on_style: pep8; ALLOW_SPLIT_BEFORE_DICT_VALUE: False, SPLIT_ALL_COMMA_SEPARATED_VALUES: True}"
+  ],
   "redhat.telemetry.enabled": true,
   "[xml]": {
     "editor.defaultFormatter": "redhat.vscode-xml",
     "editor.tabSize": 4,
     "editor.trimAutoWhitespace": true,
     "editor.formatOnSaveMode": "file",
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
   },
   "xml.format.maxLineWidth": 120,
+  
 }
 ```

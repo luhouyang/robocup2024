@@ -62,6 +62,13 @@
         value="${level_1_height_displacement + metal_thickness}" />
 
 
+    <!-- LIDAR -->
+    <xacro:property name="lidar_radius" value="0.030" />
+    <xacro:property name="lidar_length" value="0.068" />
+
+    <xacro:property name="lidar_weight" value="0.400" />
+
+
     <!-- ROBOT LEVEL 2 PROPERTIES -->
     <xacro:property name="level_2_height_displacement"
         value="${level_1_height_displacement + metal_thickness + level_1_support_height}" />
