@@ -2,7 +2,7 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
     <xacro:macro name="depth_camera"
-        params="nameprefix parent camera_length camera_width camera_height mass fixture_radius fixture_length *origin *frame_name">
+        params="nameprefix parent camera_length camera_width camera_height mass fixture_radius fixture_length *origin">
 
         <!-- CAMERA FIXTURE -->
         <joint name="${nameprefix}_fixture_joint" type="fixed">
@@ -79,8 +79,7 @@
                     </clip>
                 </camera>
                 <plugin name="${nameprefix}_controller" filename="libgazebo_ros_camera.so">
-                    <!-- <frame_name>camera_link_optical</frame_name> -->
-                    <xacro:insert_block name="frame_name" />
+                    <frame_name>${nameprefix}_link_optical</frame_name>
                     <min_depth>0.1</min_depth>
                     <max_depth>100.0</max_depth>
                 </plugin>

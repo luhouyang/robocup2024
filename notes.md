@@ -59,6 +59,7 @@ sudo apt install v4l-utils ros-humble-v4l2-camera
 sudo apt install ros-humble-twist-mux
 sudo apt install ros-humble-slam-toolbox
 sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup
+sudo apt install ros-humble-ros-gz
 ```
 
 ## [TUTORIAL INSTALLS]

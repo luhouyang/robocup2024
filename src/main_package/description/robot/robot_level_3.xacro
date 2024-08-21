@@ -74,7 +74,6 @@
         fixture_radius="${intel_camera_fixture_radius}"
         fixture_length="${intel_camera_fixture_length}">
         <origin xyz="0 0 ${intel_camera_fixture_length/2}" rpy="0 0 0" />
-        <frame_name>camera_1_link_optical</frame_name>
     </xacro:depth_camera>
 
     <xacro:depth_camera nameprefix="camera_2"
@@ -87,7 +86,6 @@
         fixture_length="${intel_camera_fixture_length}">
         <origin xyz="${level_3_base_length/2 - intel_camera_fixture_radius} 0 ${intel_camera_fixture_length/2}"
             rpy="0 0 0" />
-        <frame_name>camera_2_link_optical</frame_name>
     </xacro:depth_camera>
 
 
