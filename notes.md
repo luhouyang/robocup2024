@@ -174,3 +174,11 @@ Change "params_declare -> 'FILE_NAME'" to the appropriate .yaml file from params
 1. RUN gazebo, rviz2
 
 1. USE 2D Pose Estimate to point in direction on bot in gazebo after driving around a bit
+
+## [OMNI WHEEL]
+
+1. Controller package: https://github.com/hijimasa/omni_wheel_controller
+
+1. Velocity publisher from example: https://github.com/hijimasa/omni_wheel_controller_sample/tree/main
+
+1. Working version of packages is included, run `colcon build` from workspace root only.

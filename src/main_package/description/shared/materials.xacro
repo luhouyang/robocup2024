@@ -46,6 +46,10 @@
         <color rgba="0.2 0.2 1 1" />
     </material>
 
+    <material name="gray">
+        <color rgba="0.6 0.6 0.6 1" />
+    </material>
+
     <!-- CAMERA -->
     <material name="yellow">
         <color rgba="1 1 0.6 1" />

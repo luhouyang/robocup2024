@@ -1,6 +1,4 @@
 gazebo:
-  world: $HOME/Desktop/robocup/simulation_config/world_sim.world
-
   ros__parameters:
     publish_rate: 400.0
     

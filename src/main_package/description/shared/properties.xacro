@@ -16,6 +16,10 @@
     mass = length * height * metal_thickness * metal_density 
     -->
 
+    <!-- WHEEL PROPS -->
+    <xacro:property name="wheel_radius" value="0.050" />
+    <xacro:property name="wheel_thickness" value="0.038" />
+
 
     <!-- CHASSIS & FRAME PROPS -->
     <xacro:property name="chassis_length" value="0.500" />

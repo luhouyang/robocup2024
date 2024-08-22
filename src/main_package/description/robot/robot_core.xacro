@@ -1,11 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- WHEEL PROPS -->
-    <xacro:property name="wheel_radius" value="0.050" />
-    <xacro:property name="wheel_thickness" value="0.038" />
-
-
     <!-- BASE LINK -->
     <link name="base_link"></link>
 
@@ -44,7 +39,13 @@
 
     <!-- WHEELS -->
     <!-- left wheel -->
-    <joint name="left_wheel_joint" type="continuous">
+    <!-- Wheel1 -->
+    <xacro:omni_wheel prefix="wheel1" parent="base_link">
+        <origin
+            xyz="-${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
+            rpy="0 ${pi/2} ${pi*3/4}" />
+    </xacro:omni_wheel>
+    <!-- <joint name="left_wheel_joint" type="continuous">
         <parent link="base_link" />
         <child link="left_wheel" />
         <origin
@@ -73,10 +74,16 @@
 
     <gazebo reference="left_wheel">
         <material>Gazebo/Blue</material>
-    </gazebo>
+    </gazebo> -->
 
     <!-- front wheel -->
-    <joint name="front_wheel_joint" type="continuous">
+    <!-- Wheel0 -->
+    <xacro:omni_wheel prefix="wheel0" parent="base_link">
+        <origin
+            xyz="${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
+            rpy="0 ${pi/2} ${pi/4}" />
+    </xacro:omni_wheel>
+    <!-- <joint name="front_wheel_joint" type="continuous">
         <parent link="base_link" />
         <child link="front_wheel" />
         <origin
@@ -104,10 +111,16 @@
 
     <gazebo reference="front_wheel">
         <material>Gazebo/Blue</material>
-    </gazebo>
+    </gazebo> -->
 
     <!-- right wheel -->
-    <joint name="right_wheel_joint" type="continuous">
+    <!-- Wheel3 -->
+    <xacro:omni_wheel prefix="wheel2" parent="base_link">
+        <origin
+            xyz="${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
+            rpy="0 ${pi/2} ${-pi*3/4}" />
+    </xacro:omni_wheel>
+    <!-- <joint name="right_wheel_joint" type="continuous">
         <parent link="base_link" />
         <child link="right_wheel" />
         <origin
@@ -135,10 +148,16 @@
 
     <gazebo reference="right_wheel">
         <material>Gazebo/Blue</material>
-    </gazebo>
+    </gazebo> -->
 
     <!-- back wheel -->
-    <joint name="back_wheel_joint" type="continuous">
+    <!-- Wheel2 -->
+    <xacro:omni_wheel prefix="wheel3" parent="base_link">
+        <origin
+            xyz="-${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
+            rpy="0 ${pi/2} ${-pi/4}" />
+    </xacro:omni_wheel>
+    <!-- <joint name="back_wheel_joint" type="continuous">
         <parent link="base_link" />
         <child link="back_wheel" />
         <origin
@@ -166,7 +185,7 @@
 
     <gazebo reference="back_wheel">
         <material>Gazebo/Blue</material>
-    </gazebo>
+    </gazebo> -->
 
 
     <!-- FRAME -->
