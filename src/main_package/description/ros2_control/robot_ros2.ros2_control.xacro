@@ -12,9 +12,9 @@
           <param name="state_following_offset">0.0</param>
         </xacro:if>
         <xacro:if value="${use_sim}">
-          <!--
-          <plugin>gz_ros2_control/GazeboSimSystem</plugin>
-         -->
+
+          <!-- <plugin>gz_ros2_control/GazeboSimSystem</plugin> -->
+
           <plugin>ign_ros2_control/IgnitionSystem</plugin>
         </xacro:if>
       </hardware>

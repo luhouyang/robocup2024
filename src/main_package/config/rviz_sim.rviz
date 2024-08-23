@@ -4,10 +4,12 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
+        - /Global Options1
+        - /Image1
         - /PointCloud21/Topic1
         - /LaserScan1
       Splitter Ratio: 0.5
-    Tree Height: 671
+    Tree Height: 408
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -188,125 +190,124 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        base_link:
-          chassis:
-            {}
-          frame_back_corner_bottom_link:
-            {}
-          frame_back_corner_top_link:
-            {}
-          frame_back_left_side_bottom_link:
-            {}
-          frame_back_left_side_top_link:
-            {}
-          frame_front_corner_bottom_link:
-            {}
-          frame_front_corner_top_link:
-            {}
-          frame_front_right_side_bottom_link:
-            {}
-          frame_front_right_side_top_link:
-            {}
-          frame_left_corner_bottom_link:
-            {}
-          frame_left_corner_top_link:
-            {}
-          frame_left_front_side_bottom_link:
-            {}
-          frame_left_front_side_top_link:
-            {}
-          frame_right_back_side_bottom_link:
-            {}
-          frame_right_back_side_top_link:
-            {}
-          frame_right_corner_bottom_link:
-            {}
-          frame_right_corner_top_link:
-            {}
-          level_1_center_link:
-            l1_frame_back_corner_link:
-              {}
-            l1_frame_front_corner_link:
-              {}
-            l1_frame_left_corner_link:
-              {}
-            l1_frame_right_corner_link:
-              {}
-            laser_frame:
-              {}
-            level_1_base_plate_x_link:
-              {}
-            level_1_base_plate_y_link:
-              {}
-          level_2_center_link:
-            cpu_link:
-              {}
-            l1_back_left_support_cylinder_link:
-              {}
-            l1_back_right_support_cylinder_link:
-              {}
-            l1_front_left_support_cylinder_link:
-              {}
-            l1_front_right_support_cylinder_link:
-              {}
-            l2_frame_back_corner_link:
-              {}
-            l2_frame_front_corner_link:
-              {}
-            l2_frame_left_corner_link:
-              {}
-            l2_frame_right_corner_link:
-              {}
-            level_2_base_plate_x_link:
-              {}
-            level_2_base_plate_y_link:
-              {}
-            network_link:
-              {}
-          level_3_center_link:
-            camera_2_fixture_link:
-              camera_2_link:
-                camera_2_link_optical:
-                  {}
-            display_camera_top_link:
-              camera_1_fixture_link:
-                camera_1_link:
-                  camera_1_link_optical:
-                    {}
-              display_link:
-                {}
-            l2_back_left_support_cylinder_link:
-              {}
-            l2_back_right_support_cylinder_link:
-              {}
-            l2_front_left_support_cylinder_link:
-              {}
-            l2_front_right_support_cylinder_link:
-              {}
-            l3_left_support_cylinder_link:
-              {}
-            l3_middle_support_cylinder_link:
-              {}
-            l3_right_support_cylinder_link:
-              {}
-            level_3_base_plate_link:
-              {}
-            mic_base_link:
-              mic_support_link:
-                mic_link:
-                  {}
-            stop_button_link:
-              {}
-          wheel0_housing_link:
-            {}
-          wheel1_housing_link:
-            {}
-          wheel2_housing_link:
-            {}
-          wheel3_housing_link:
-            {}
         odom:
-          {}
+          base_link:
+            chassis:
+              {}
+            frame_back_corner_bottom_link:
+              {}
+            frame_back_corner_top_link:
+              {}
+            frame_back_left_side_bottom_link:
+              {}
+            frame_back_left_side_top_link:
+              {}
+            frame_front_corner_bottom_link:
+              {}
+            frame_front_corner_top_link:
+              {}
+            frame_front_right_side_bottom_link:
+              {}
+            frame_front_right_side_top_link:
+              {}
+            frame_left_corner_bottom_link:
+              {}
+            frame_left_corner_top_link:
+              {}
+            frame_left_front_side_bottom_link:
+              {}
+            frame_left_front_side_top_link:
+              {}
+            frame_right_back_side_bottom_link:
+              {}
+            frame_right_back_side_top_link:
+              {}
+            frame_right_corner_bottom_link:
+              {}
+            frame_right_corner_top_link:
+              {}
+            level_1_center_link:
+              l1_frame_back_corner_link:
+                {}
+              l1_frame_front_corner_link:
+                {}
+              l1_frame_left_corner_link:
+                {}
+              l1_frame_right_corner_link:
+                {}
+              laser_frame:
+                {}
+              level_1_base_plate_x_link:
+                {}
+              level_1_base_plate_y_link:
+                {}
+            level_2_center_link:
+              cpu_link:
+                {}
+              l1_back_left_support_cylinder_link:
+                {}
+              l1_back_right_support_cylinder_link:
+                {}
+              l1_front_left_support_cylinder_link:
+                {}
+              l1_front_right_support_cylinder_link:
+                {}
+              l2_frame_back_corner_link:
+                {}
+              l2_frame_front_corner_link:
+                {}
+              l2_frame_left_corner_link:
+                {}
+              l2_frame_right_corner_link:
+                {}
+              level_2_base_plate_x_link:
+                {}
+              level_2_base_plate_y_link:
+                {}
+              network_link:
+                {}
+            level_3_center_link:
+              camera_2_fixture_link:
+                camera_2_link:
+                  camera_2_link_optical:
+                    {}
+              display_camera_top_link:
+                camera_1_fixture_link:
+                  camera_1_link:
+                    camera_1_link_optical:
+                      {}
+                display_link:
+                  {}
+              l2_back_left_support_cylinder_link:
+                {}
+              l2_back_right_support_cylinder_link:
+                {}
+              l2_front_left_support_cylinder_link:
+                {}
+              l2_front_right_support_cylinder_link:
+                {}
+              l3_left_support_cylinder_link:
+                {}
+              l3_middle_support_cylinder_link:
+                {}
+              l3_right_support_cylinder_link:
+                {}
+              level_3_base_plate_link:
+                {}
+              mic_base_link:
+                mic_support_link:
+                  mic_link:
+                    {}
+              stop_button_link:
+                {}
+            wheel0_housing_link:
+              {}
+            wheel1_housing_link:
+              {}
+            wheel2_housing_link:
+              {}
+            wheel3_housing_link:
+              {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -649,7 +650,7 @@ Visualization Manager:
       Value: true
       Visual Enabled: true
     - Class: rviz_default_plugins/Image
-      Enabled: false
+      Enabled: true
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -661,7 +662,7 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /camera_1/image_raw
-      Value: false
+      Value: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
@@ -776,35 +777,35 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 9.110101699829102
+      Distance: 2.238316535949707
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.26238059997558594
-        Y: -0.04215431958436966
-        Z: 0.9162383675575256
+        X: 0.011928192339837551
+        Y: -0.22777706384658813
+        Z: 0.33566391468048096
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.9697962999343872
+      Pitch: 0.23979635536670685
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 3.158583402633667
+      Yaw: 3.0585834980010986
     Saved: ~
 Window Geometry:
   Displays:
     collapsed: false
-  Height: 1002
+  Height: 882
   Hide Left Dock: false
   Hide Right Dock: false
   Image:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000400000000000001610000033bfc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006e00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c00610079007301000000470000033b000000f100fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d00610067006500000002bb000000c70000002f00fffffffb0000000c00430061006d00650072006101000002bb000000c70000000000000000000000010000010f0000033bfc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a0056006900650077007301000000470000033b000000c200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e100000197000000030000055800000040fc0100000002fb0000000800540069006d00650100000000000005580000038100fffffffb0000000800540069006d00650100000000000004500000000000000000000002da0000033b00000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd000000040000000000000161000002c3fc020000000afb0000001200530065006c0065006300740069006f006e00000001e10000009b0000006e00fffffffb0000001e0054006f006f006c002000500072006f007000650072007400690065007302000001ed000001df00000185000000a3fb000000120056006900650077007300200054006f006f02000001df000002110000018500000122fb000000200054006f006f006c002000500072006f0070006500720074006900650073003203000002880000011d000002210000017afb000000100044006900730070006c006100790073010000004700000234000000f100fffffffb0000002000730065006c0065006300740069006f006e00200062007500660066006500720200000138000000aa0000023a00000294fb00000014005700690064006500530074006500720065006f02000000e6000000d2000003ee0000030bfb0000000c004b0069006e0065006300740200000186000001060000030c00000261fb0000000a0049006d0061006700650100000282000000880000002f00fffffffb0000000c00430061006d00650072006101000002bb000000c70000000000000000000000010000010f000002c3fc0200000003fb0000001e0054006f006f006c002000500072006f00700065007200740069006500730100000041000000780000000000000000fb0000000a005600690065007700730100000047000002c3000000c200fffffffb0000001200530065006c0065006300740069006f006e010000025a000000b200000000000000000000000200000490000000a9fc0100000001fb0000000a00560069006500770073030000004e00000080000002e10000019700000003000005bc00000040fc0100000002fb0000000800540069006d00650100000000000005bc0000038100fffffffb0000000800540069006d006501000000000000045000000000000000000000033e000002c300000004000000040000000800000008fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Selection:
     collapsed: false
   Time:
@@ -813,6 +814,6 @@ Window Geometry:
     collapsed: false
   Views:
     collapsed: false
-  Width: 1368
-  X: 1828
-  Y: 102
+  Width: 1468
+  X: 94
+  Y: 858

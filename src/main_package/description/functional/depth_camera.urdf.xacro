@@ -60,7 +60,7 @@
         <link name="${nameprefix}_link_optical"></link>
 
         <!-- GAZEBO CONFIG -->
-        <gazebo reference="${nameprefix}_link">
+        <!-- <gazebo reference="${nameprefix}_link">
             <material>Gazebo/Yellow</material>
             <sensor name="${nameprefix}" type="depth">
                 <pose> 0 0 0 0 0 0 </pose>
@@ -84,8 +84,37 @@
                     <max_depth>100.0</max_depth>
                 </plugin>
             </sensor>
+        </gazebo> -->
+        <gazebo reference="${nameprefix}_link">
+            <sensor name="${nameprefix}_link" type="camera">
+                <update_rate>10.0</update_rate>
+                <always_on>true</always_on>
+                <ignition_frame_id>${nameprefix}_link</ignition_frame_id>
+                <pose>0 0 0 0 0 0</pose>
+                <topic>/${nameprefix}/image_raw</topic>
+                <camera name="${nameprefix}">
+                    <!--
+                <triggered>true</triggered>
+                <trigger_topic>/trigger</trigger_topic>
+                -->
+                    <horizontal_fov>1.0</horizontal_fov>
+                    <image>
+                        <width>1280</width>
+                        <height>720</height>
+                        <format>R8G8B8</format>
+                    </image>
+                    <clip>
+                        <near>0.02</near>
+                        <far>8</far>
+                    </clip>
+                </camera>
+                <!-- <plugin name="${nameprefix}_controller" filename="libgazebo_ros_camera.so">
+                    <frame_name>${nameprefix}_link_optical</frame_name>
+                    <min_depth>0.1</min_depth>
+                    <max_depth>100.0</max_depth>
+                </plugin> -->
+            </sensor>
         </gazebo>
-
     </xacro:macro>
 
 </robot>

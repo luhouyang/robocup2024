@@ -5,9 +5,9 @@
 
     <!-- =============== Gazebo =============== -->
     <gazebo>
-      <!--
-      <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
-      -->
+
+      <!-- <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin"> -->
+
       <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
         <parameters>$(find main_package)/config/robot_config.yaml</parameters>
       </plugin>

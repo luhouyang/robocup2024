@@ -44,6 +44,7 @@
         <origin
             xyz="-${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${pi*3/4}" />
+        <!-- <origin xyz="-0.35 0.35 0.05" rpy="0 ${pi/2} ${pi*3/4}" /> -->
     </xacro:omni_wheel>
     <!-- <joint name="left_wheel_joint" type="continuous">
         <parent link="base_link" />
@@ -82,6 +83,7 @@
         <origin
             xyz="${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${pi/4}" />
+        <!-- <origin xyz="0.35 0.35 0.05" rpy="0 ${pi/2} ${pi/4}" /> -->
     </xacro:omni_wheel>
     <!-- <joint name="front_wheel_joint" type="continuous">
         <parent link="base_link" />
@@ -115,10 +117,11 @@
 
     <!-- right wheel -->
     <!-- Wheel3 -->
-    <xacro:omni_wheel prefix="wheel2" parent="base_link">
+    <xacro:omni_wheel prefix="wheel3" parent="base_link">
         <origin
-            xyz="${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
+            xyz="-${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${-pi*3/4}" />
+        <!-- <origin xyz="-0.35 -0.35 0.05" rpy="0 ${pi/2} ${-pi*3/4}" /> -->
     </xacro:omni_wheel>
     <!-- <joint name="right_wheel_joint" type="continuous">
         <parent link="base_link" />
@@ -152,10 +155,11 @@
 
     <!-- back wheel -->
     <!-- Wheel2 -->
-    <xacro:omni_wheel prefix="wheel3" parent="base_link">
+    <xacro:omni_wheel prefix="wheel2" parent="base_link">
         <origin
-            xyz="-${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
+            xyz="${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${-pi/4}" />
+        <!-- <origin xyz="0.35 -0.35 0.05" rpy="0 ${pi/2} ${-pi/4}" /> -->
     </xacro:omni_wheel>
     <!-- <joint name="back_wheel_joint" type="continuous">
         <parent link="base_link" />

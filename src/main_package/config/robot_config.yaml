@@ -13,7 +13,7 @@ omni_wheel_controller:
     omni_wheel_names  : ['wheel0_shaft_joint', 'wheel1_shaft_joint', 'wheel2_shaft_joint', 'wheel3_shaft_joint']
     omni_wheel_angle  : [0.785398, 2.356194, -2.356194, -0.785398]
 
-    omni_wheel_distance : 0.438
+    omni_wheel_distance : 0.24 # gazebo
     wheel_radius : 0.05
 
     odom_frame_id: odom
