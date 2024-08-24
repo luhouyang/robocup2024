@@ -11,8 +11,7 @@
         <parameters>$(find main_package)/params/gaz_ros2_ctl_use_sim.yaml</parameters>
       </plugin>
 
-      <plugin name="gazebo_ros_sensors" filename="libgazebo_ros_sensors.so">
-        <render_engine>ogre2</render_engine>
+      <plugin name="gazebo_ros_joint_state_publisher" filename="gazebo_ros_joint_state_publisher.so">
       </plugin>
     </gazebo>
 

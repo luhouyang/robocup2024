@@ -203,7 +203,9 @@ def generate_launch_description():
     delayed_load_omni_wheel_controller_handler = RegisterEventHandler(
         OnProcessStart(target_action=controller_manager,
                        on_start=[load_omni_wheel_controller]))
-
+    # 'world': os.path.join(get_package_share_directory(package_name),
+    #                       'worlds',
+    #                       world_name),
     delayed_load_joint_state_controller_handler = RegisterEventHandler(
         OnProcessStart(target_action=controller_manager,
                        on_start=[load_joint_state_controller]))
