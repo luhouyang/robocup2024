@@ -4,7 +4,7 @@
     <xacro:macro name="mic"
         params="nameprefix parent base_length base_radius support_length support_radius mic_length mic_radius mass *origin">
 
-        <!-- base -->
+
         <joint name="${nameprefix}_base_joint" type="fixed">
             <parent link="${parent}" />
             <child link="${nameprefix}_base_link" />
@@ -34,7 +34,7 @@
             <material>Gazebo/DarkGrey</material>
         </gazebo>
 
-        <!-- support -->
+
         <joint name="${nameprefix}_support_joint" type="fixed">
             <parent link="${nameprefix}_base_link" />
             <child link="${nameprefix}_support_link" />
@@ -64,7 +64,7 @@
             <material>Gazebo/DarkGrey</material>
         </gazebo>
 
-        <!-- MIC -->
+
         <joint name="${nameprefix}_joint" type="fixed">
             <parent link="${nameprefix}_support_link" />
             <child link="${nameprefix}_link" />

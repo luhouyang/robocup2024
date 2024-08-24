@@ -13,9 +13,8 @@
         </xacro:if>
         <xacro:if value="${use_sim}">
 
-          <!-- <plugin>gz_ros2_control/GazeboSimSystem</plugin> -->
 
-          <plugin>ign_ros2_control/IgnitionSystem</plugin>
+          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
         </xacro:if>
       </hardware>
       <joint name="wheel0_shaft_joint">
@@ -63,7 +62,6 @@
         <state_interface name="effort" />
       </joint>
     </ros2_control>
-
   </xacro:macro>
 
 </robot>

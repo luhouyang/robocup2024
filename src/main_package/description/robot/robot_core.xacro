@@ -1,11 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- BASE LINK -->
+
     <link name="base_link"></link>
 
 
-    <!-- CHASSIS LINK -->
     <joint name="chassis_joint" type="fixed">
         <parent link="base_link" />
         <child link="chassis" />
@@ -37,164 +36,34 @@
     </gazebo>
 
 
-    <!-- WHEELS -->
-    <!-- left wheel -->
-    <!-- Wheel1 -->
     <xacro:omni_wheel prefix="wheel1" parent="base_link">
         <origin
             xyz="-${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${pi*3/4}" />
-        <!-- <origin xyz="-0.35 0.35 0.05" rpy="0 ${pi/2} ${pi*3/4}" /> -->
+
     </xacro:omni_wheel>
-    <!-- <joint name="left_wheel_joint" type="continuous">
-        <parent link="base_link" />
-        <child link="left_wheel" />
-        <origin
-            xyz="-${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
-            rpy="-${pi/2} 0 0.785" />
-        <axis xyz="0 0 -1" />
-    </joint>
 
-    <link name="left_wheel">
-        <visual>
-            <geometry>
-                <cylinder radius="${wheel_radius}" length="${wheel_thickness}" />
-            </geometry>
-            <material name="blue" />
-        </visual>
-        <collision>
-            <geometry>
-                <sphere radius="${wheel_radius}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_cylinder
-            mass="1.0" length="${wheel_thickness}" radius="${wheel_radius}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_cylinder>
-    </link>
-
-    <gazebo reference="left_wheel">
-        <material>Gazebo/Blue</material>
-    </gazebo> -->
-
-    <!-- front wheel -->
-    <!-- Wheel0 -->
     <xacro:omni_wheel prefix="wheel0" parent="base_link">
         <origin
             xyz="${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${pi/4}" />
-        <!-- <origin xyz="0.35 0.35 0.05" rpy="0 ${pi/2} ${pi/4}" /> -->
+
     </xacro:omni_wheel>
-    <!-- <joint name="front_wheel_joint" type="continuous">
-        <parent link="base_link" />
-        <child link="front_wheel" />
-        <origin
-            xyz="${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
-            rpy="-${pi/2} 0 -0.785" />
-        <axis xyz="0 0 -1" />
-    </joint>
 
-    <link name="front_wheel">
-        <visual>
-            <geometry>
-                <cylinder radius="${wheel_radius}" length="${wheel_thickness}" />
-            </geometry>
-            <material name="blue" />
-        </visual>
-        <collision>
-            <geometry>
-                <sphere radius="${wheel_radius}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_cylinder mass="1.0" length="${wheel_thickness}" radius="${wheel_radius}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_cylinder>
-    </link>
-
-    <gazebo reference="front_wheel">
-        <material>Gazebo/Blue</material>
-    </gazebo> -->
-
-    <!-- right wheel -->
-    <!-- Wheel3 -->
     <xacro:omni_wheel prefix="wheel3" parent="base_link">
         <origin
             xyz="-${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${-pi*3/4}" />
-        <!-- <origin xyz="-0.35 -0.35 0.05" rpy="0 ${pi/2} ${-pi*3/4}" /> -->
+
     </xacro:omni_wheel>
-    <!-- <joint name="right_wheel_joint" type="continuous">
-        <parent link="base_link" />
-        <child link="right_wheel" />
-        <origin
-            xyz="${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
-            rpy="${pi/2} ${pi} 0.785" />
-        <axis xyz="0 0 -1" />
-    </joint>
 
-    <link name="right_wheel">
-        <visual>
-            <geometry>
-                <cylinder radius="${wheel_radius}" length="${wheel_thickness}" />
-            </geometry>
-            <material name="blue" />
-        </visual>
-        <collision>
-            <geometry>
-                <sphere radius="${wheel_radius}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_cylinder mass="1.0" length="${wheel_thickness}" radius="${wheel_radius}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_cylinder>
-    </link>
-
-    <gazebo reference="right_wheel">
-        <material>Gazebo/Blue</material>
-    </gazebo> -->
-
-    <!-- back wheel -->
-    <!-- Wheel2 -->
     <xacro:omni_wheel prefix="wheel2" parent="base_link">
         <origin
             xyz="${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${-pi/4}" />
-        <!-- <origin xyz="0.35 -0.35 0.05" rpy="0 ${pi/2} ${-pi/4}" /> -->
+
     </xacro:omni_wheel>
-    <!-- <joint name="back_wheel_joint" type="continuous">
-        <parent link="base_link" />
-        <child link="back_wheel" />
-        <origin
-            xyz="-${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
-            rpy="${pi/2} ${pi} -0.785" />
-        <axis xyz="0 0 -1" />
-    </joint>
 
-    <link name="back_wheel">
-        <visual>
-            <geometry>
-                <cylinder radius="${wheel_radius}" length="${wheel_thickness}" />
-            </geometry>
-            <material name="blue" />
-        </visual>
-        <collision>
-            <geometry>
-                <sphere radius="${wheel_radius}" />
-            </geometry>
-        </collision>
-        <xacro:inertial_cylinder mass="1.0" length="${wheel_thickness}" radius="${wheel_radius}">
-            <origin xyz="0 0 0" rpy="0 0 0" />
-        </xacro:inertial_cylinder>
-    </link>
-
-    <gazebo reference="back_wheel">
-        <material>Gazebo/Blue</material>
-    </gazebo> -->
-
-
-    <!-- FRAME -->
-    <!-- CORNERS -->
-    <!-- left corner -->
     <xacro:corner_frame nameprefix="frame_left_corner_top" parent="base_link" bx="${chassis_outer_corner}"
         by="${chassis_outer_thickness}"
         bz="${chassis_outer_thickness}">
@@ -210,7 +79,7 @@
             rpy="0 0 0.785" />
     </xacro:corner_frame>
 
-    <!-- front corner -->
+
     <xacro:corner_frame nameprefix="frame_front_corner_top" parent="base_link" bx="${chassis_outer_corner}"
         by="${chassis_outer_thickness}"
         bz="${chassis_outer_thickness}">
@@ -226,7 +95,7 @@
             rpy="0 0 -0.785" />
     </xacro:corner_frame>
 
-    <!-- right corner -->
+
     <xacro:corner_frame nameprefix="frame_right_corner_top" parent="base_link" bx="${chassis_outer_corner}"
         by="${chassis_outer_thickness}"
         bz="${chassis_outer_thickness}">
@@ -242,7 +111,7 @@
             rpy="0 0 0.785" />
     </xacro:corner_frame>
 
-    <!-- back corner -->
+
     <xacro:corner_frame nameprefix="frame_back_corner_top" parent="base_link" bx="${chassis_outer_corner}"
         by="${chassis_outer_thickness}"
         bz="${chassis_outer_thickness}">
@@ -259,8 +128,6 @@
     </xacro:corner_frame>
 
 
-    <!-- SIDES -->
-    <!-- left-front side -->
     <xacro:side_frame nameprefix="frame_left_front_side_top" bx="${chassis_outer_side}" by="${chassis_outer_thickness}"
         bz="${chassis_outer_thickness}">
         <origin
@@ -274,7 +141,7 @@
             rpy="0 0 0" />
     </xacro:side_frame>
 
-    <!-- front-right side -->
+
     <xacro:side_frame nameprefix="frame_front_right_side_top" bx="${chassis_outer_thickness}" by="${chassis_outer_side}"
         bz="${chassis_outer_thickness}">
         <origin
@@ -288,7 +155,7 @@
             rpy="0 0 0" />
     </xacro:side_frame>
 
-    <!-- right-back side -->
+
     <xacro:side_frame nameprefix="frame_right_back_side_top" bx="${chassis_outer_side}" by="${chassis_outer_thickness}"
         bz="${chassis_outer_thickness}">
         <origin
@@ -302,7 +169,7 @@
             rpy="0 0 0" />
     </xacro:side_frame>
 
-    <!-- back-left side -->
+
     <xacro:side_frame nameprefix="frame_back_left_side_top" bx="${chassis_outer_thickness}" by="${chassis_outer_side}"
         bz="${chassis_outer_thickness}">
         <origin
