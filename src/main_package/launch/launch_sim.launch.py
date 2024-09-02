@@ -12,6 +12,7 @@ import launch_ros.descriptions
 from launch_ros.actions import Node
 
 import xacro
+from nav2_common.launch import RewrittenYaml
 
 
 def generate_launch_description():
@@ -46,22 +47,23 @@ def generate_launch_description():
                               'robot',
                               'robot.urdf.xacro')
 
-    robot_description_config = xacro.process_file(xacro_file,
-                                                  mappings={'use_sim': 'true'})
-    # robot_description_config = Command([
-    #     'xacro ',
-    #     xacro_file,
-    #     ' use_ros2_control:=',
-    #     use_ros2_control,
-    #     ' sim_mode:=',
-    #     use_sim_time
-    # ])
+    # robot_description_config = xacro.process_file(xacro_file,
+    #   mappings={'use_sim': 'true'})
+    robot_description_config = Command([
+        'xacro ',
+        xacro_file,
+        ' use_ros2_control:=',
+        use_ros2_control,
+        ' sim_mode:=',
+        use_sim_time
+    ])
 
     # Create a robot_state_publisher node
     params = {
-        'robot_description': robot_description_config.toxml(),
+        # 'robot_description': robot_description_config.toxml(),
+        'robot_description': robot_description_config,
         'use_sim_time': use_sim_time,
-        'use_ros2_control': use_ros2_control
+        # 'use_ros2_control': use_ros2_control
     }
 
     node_robot_state_publisher = Node(package='robot_state_publisher',
@@ -242,6 +244,23 @@ def generate_launch_description():
         ],
     )
 
+    # map_yaml_file = LaunchConfiguration('map')
+    # autostart = LaunchConfiguration('autostart')
+    # params_file = LaunchConfiguration('params_file')
+    # lifecycle_nodes = ['map_server', 'amcl']
+    # remappings = [('/tf', 'tf'), ('/tf_static', 'tf_static')]
+
+    # # Create our own temporary YAML files that include substitutions
+    # param_substitutions = {
+    #     'use_sim_time': use_sim_time,
+    #     'yaml_filename': map_yaml_file
+    # }
+
+    # configured_params = RewrittenYaml(source_file=params_file,
+    #                                   root_key='',
+    #                                   param_rewrites=param_substitutions,
+    #                                   convert_types=True)
+
     return LaunchDescription([
         DeclareLaunchArgument('use_sim_time',
                               default_value='true',
@@ -252,6 +271,25 @@ def generate_launch_description():
         DeclareLaunchArgument('publish_rate',
                               default_value='1000.0',
                               description='Publish rate'),
+        # DeclareLaunchArgument(
+        #     'map',
+        #     default_value=os.path.join(
+        #         get_package_share_directory(package_name),
+        #         'maps',
+        #         'turtlebot3_world.yaml'),
+        #     description='Full path to map yaml file to load'),
+        # DeclareLaunchArgument(
+        #     'autostart',
+        #     default_value='true',
+        #     description='Automatically startup the nav2 stack'),
+        # DeclareLaunchArgument(
+        #     'params_file',
+        #     default_value=os.path.join(
+        #         get_package_share_directory(package_name),
+        #         'config',
+        #         'nav2_params.yaml'),
+        #     description='Full path to the ROS2 parameters file to use'),
+
         # RegisterEventHandler(
         #     event_handler=OnProcessExit(target_action=controller_manager,
         #                                 on_exit=load_joint_state_controller)),
@@ -270,4 +308,29 @@ def generate_launch_description():
         # bridge,
         velocity_converter,
         rviz,
+        # Node(package='nav2_map_server',
+        #      executable='map_server',
+        #      name='map_server',
+        #      output='screen',
+        #      parameters=[configured_params],
+        #      remappings=remappings),
+        # Node(package='nav2_amcl',
+        #      executable='amcl',
+        #      name='amcl',
+        #      output='screen',
+        #      parameters=[configured_params],
+        #      remappings=remappings),
+        # Node(package='nav2_lifecycle_manager',
+        #      executable='lifecycle_manager',
+        #      name='lifecycle_manager_localization',
+        #      output='screen',
+        #      parameters=[{
+        #          'use_sim_time': use_sim_time
+        #      },
+        #                  {
+        #                      'autostart': autostart
+        #                  },
+        #                  {
+        #                      'node_names': lifecycle_nodes
+        #                  }])
     ])

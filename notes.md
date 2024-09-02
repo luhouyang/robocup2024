@@ -47,6 +47,8 @@ https://github.com/IntelRealSense/realsense-ros
 
 ## meshlab: https://www.cloudcompare.org
 
+## audio: https://github.com/mgonzs13/audio_common
+
 ## [INSTALLS]
 ```
 sudo apt update
