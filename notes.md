@@ -191,8 +191,6 @@ Change "params_declare -> 'FILE_NAME'" to the appropriate .yaml file from params
 ```
     # Topic: /joint_states
 
-    ## Left S# Topic: /joint_states
-
     ## Left Spin In Place
 
     header:
