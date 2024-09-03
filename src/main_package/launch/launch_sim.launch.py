@@ -262,7 +262,7 @@ def generate_launch_description():
 
     # map_yaml_file = LaunchConfiguration('map')
     # autostart = LaunchConfiguration('autostart')
-    # params_file = LaunchConfiguration('params_file')
+    # params_file = LaunchConfigurationmapping'params_file')
     # lifecycle_nodes = ['map_server', 'amcl']
     # remappings = [('/tf', 'tf'), ('/tf_static', 'tf_static')]
 
@@ -293,6 +293,9 @@ def generate_launch_description():
                                   'config',
                                   params_file_name),
                               description='Full path to params file'),
+        DeclareLaunchArgument('mapping',
+                              default_value='true',
+                              description='Mapping'),
         # DeclareLaunchArgument(
         #     'map',
         #     default_value=os.path.join(
