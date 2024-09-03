@@ -279,7 +279,7 @@ def generate_launch_description():
 
     return LaunchDescription([
         DeclareLaunchArgument('use_sim_time',
-                              default_value='true',
+                              default_value='false',
                               description='Use sim time if true'),
         DeclareLaunchArgument('use_ros2_control',
                               default_value='true',
@@ -327,11 +327,11 @@ def generate_launch_description():
         gazebo,
         node_robot_state_publisher,
         spawn_entity,
-        load_omni_wheel_controller,
-        load_joint_state_controller,
-        # delayed_controller_manager,
-        # delayed_load_omni_wheel_controller_handler,
-        # delayed_load_joint_state_controller_handler,
+        # load_omni_wheel_controller,
+        # load_joint_state_controller,
+        delayed_controller_manager,
+        delayed_load_omni_wheel_controller_handler,
+        delayed_load_joint_state_controller_handler,
         # bridge,
         velocity_converter,
         rviz,
@@ -357,7 +357,7 @@ def generate_launch_description():
         #      },
         #                  {
         #                      'autostart': autostart
-        #                  },
+        #                  },use_sim_time
         #                  {
         #                      'node_names': lifecycle_nodes
         #                  }])

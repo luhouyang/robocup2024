@@ -42,12 +42,14 @@
       </inertial>
     </link>
     <gazebo reference="${prefix}_housing_link">
+      <selfCollide>false</selfCollide>
       <material>Gazebo/Gray</material>
       <mu1>0.8</mu1>
       <mu2>0.05</mu2>
       <fdir1>0 1.0 0</fdir1>
-      <kp value="30000000.0" />
-      <kd value="50000000.0" />
+      <kp value="3000.0" />
+      <kd value="3000.0" />
+
     </gazebo>
 
   </xacro:macro>

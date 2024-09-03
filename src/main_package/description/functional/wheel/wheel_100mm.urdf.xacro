@@ -11,13 +11,13 @@
     <link name="${prefix}_link">
       <visual>
         <geometry>
-          <mesh filename="file://$(find main_package)description/meshes/STL/omni_barrel_100mm.stl" />
+          <mesh filename="file://$(find main_package)/description/meshes/STL/omni_barrel_100mm.stl" />
         </geometry>
         <material name="black" />
       </visual>
       <collision>
         <geometry>
-          <mesh filename="file://$(find main_package)description/meshes/STL/omni_barrel_100mm.stl" />
+          <mesh filename="file://$(find main_package)/description/meshes/STL/omni_barrel_100mm.stl" />
         </geometry>
       </collision>
       <inertial>
@@ -51,7 +51,7 @@
       <child link="${prefix}_housing_link" />
       <xacro:insert_block name="joint_origin" />
       <axis xyz="0 0 1" />
-      <dynamics damping="0.7" />
+      <dynamics damping="1.0" />
     </joint>
     <transmission name="${prefix}_shaft_trans">
       <type>transmission_interface/SimpleTransmission</type>
@@ -67,7 +67,7 @@
     <link name="${prefix}_housing_link">
       <visual>
         <geometry>
-          <mesh filename="file://$(find main_package)description/meshes/STL/omni_housing_100mm.stl" />
+          <mesh filename="file://$(find main_package)/description/meshes/STL/omni_housing_100mm.stl" />
         </geometry>
         <origin xyz="0 0 0" rpy="0 0 0" />
         <material name="gray" />
@@ -78,7 +78,13 @@
       </inertial>
     </link>
     <gazebo reference="${prefix}_housing_link">
+      <selfCollide>false</selfCollide>
       <material>Gazebo/Gray</material>
+      <mu1>0.8</mu1>
+      <mu2>0.05</mu2>
+      <fdir1>0 1.0 0</fdir1>
+      <kp value="2500.0" />
+      <kd value="2500.0" />
     </gazebo>
 
     <joint name="${prefix}_housing_s_joint" type="fixed">

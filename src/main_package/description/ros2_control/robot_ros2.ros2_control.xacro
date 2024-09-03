@@ -11,9 +11,11 @@
           <param name="fake_sensor_commands">${fake_sensor_commands}</param>
           <param name="state_following_offset">0.0</param>
         </xacro:if>
+
+        <xacro:unless value="${use_sim}">
+        </xacro:unless>
+
         <xacro:if value="${use_sim}">
-
-
           <plugin>gazebo_ros2_control/GazeboSystem</plugin>
         </xacro:if>
       </hardware>

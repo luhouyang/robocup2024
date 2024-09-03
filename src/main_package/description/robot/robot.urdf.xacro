@@ -18,7 +18,7 @@
     <xacro:include filename="$(find ${package_name})/description/functional/lidar.urdf.xacro" />
     <xacro:include filename="$(find ${package_name})/description/functional/mic.urdf.xacro" />
     <xacro:include filename="$(find ${package_name})/description/functional/stop_button.urdf.xacro" />
-    <xacro:include filename="$(find ${package_name})/description/functional/wheel/wheel_100mm_light.urdf.xacro" />
+    <xacro:include filename="$(find ${package_name})/description/functional/wheel/wheel_100mm.urdf.xacro" />
 
 
     <xacro:include filename="$(find ${package_name})/description/robot/robot_core.xacro" />
