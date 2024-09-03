@@ -1,0 +1,106 @@
+// SERIAL COMMUNICATION MOTOR_VELOCITY
+
+// 1. Upload this code to Arduino
+// 2. Open Serial Monitor
+// 3. Run the Serial communication ROS2 Node
+
+// negative (-) velocity = CCW
+// positive (+) velocity = CW
+
+const int dir1 = 24;
+const int dir2 = 26;
+const int dir3 = 28;
+const int dir4 = 30;
+
+const int pwm1 = 3;
+const int pwm2 = 4;
+const int pwm3 = 5;
+const int pwm4 = 6;
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void motorMovement(float velocity1, float velocity2, float velocity3, float velocity4) {
+  if (velocity1 > 0) {
+    digitalWrite(dir1, HIGH);
+    analogWrite(pwm1, 125);
+    Serial.print("Motor1 CW |");
+  } else if (velocity1 < 0) {
+    digitalWrite(dir1, LOW);
+    analogWrite(pwm1, 125);
+    Serial.print("Motor1 CCW |");
+  } else if (velocity1 == 0){
+    analogWrite(pwm1, 0);
+    Serial.print("Motor1 STOP |");
+  }
+
+  if (velocity2 > 0) {
+    digitalWrite(dir2, HIGH);
+    analogWrite(pwm2, 125);
+    Serial.print("Motor2 CW |");
+  } else if (velocity2 < 0) {
+    digitalWrite(dir2, LOW);
+    analogWrite(pwm2, 125);
+    Serial.print("Motor2 CCW |");
+  } else if (velocity2 == 0){
+    analogWrite(pwm2, 0);
+    Serial.print("Motor2 STOP |");
+  }
+
+  if (velocity3 > 0) {
+    digitalWrite(dir3, HIGH);
+    analogWrite(pwm3, 125);
+    Serial.print("Motor3 CW |");
+  } else if (velocity3 < 0) {
+    digitalWrite(dir3, LOW);
+    analogWrite(pwm3, 125);
+    Serial.print("Motor3 CCW |");
+  } else if (velocity3 == 0){
+    analogWrite(pwm3, 0);
+    Serial.print("Motor3 STOP |");
+  }
+  
+  if (velocity4 > 0) {
+    digitalWrite(dir4, HIGH);
+    analogWrite(pwm4, 125);
+    Serial.println("Motor4 CW |");
+  } else if (velocity4 < 0) {
+    digitalWrite(dir4, LOW);
+    analogWrite(pwm4, 125);
+    Serial.println("Motor4 CCW |");
+  } else if (velocity4 == 0){
+    analogWrite(pwm4, 0);
+    Serial.println("Motor4 STOP |");
+  }
+}
+
+void loop() {
+  if (Serial.available() > 0){ // Check if there is any Serial Communication
+    String velocityString = Serial.readStringUntil('\n');
+    Serial.print("Received data:");
+    Serial.println(velocityString);
+
+    String velocities[4];
+
+    int velocityIndex = 0;
+    int startIndex = 0;
+    int commaIndex = velocityString.indexOf(',');
+
+    while (velocityIndex < 4){
+
+      // Seperating the comma seperated values to an Array of Strings
+      velocities[velocityIndex] = velocityString.substring(startIndex, commaIndex);
+      velocityIndex += 1;
+      startIndex = commaIndex + 1;
+      commaIndex = velocityString.indexOf(',' , startIndex);
+    }
+
+    int velocity1 = velocities[0].toFloat();
+    int velocity2 = velocities[1].toFloat();
+    int velocity3 = velocities[2].toFloat();
+    int velocity4 = velocities[3].toFloat();
+
+    motorMovement(velocity1, velocity2, velocity3, velocity4);
+  }
+}
