@@ -1,0 +1,20 @@
+// SERIAL COMMUNICATION TESTING
+// THIS CODE IS ONLY TO SEE WHETHER THE ROS NODE CAN COMMUNICATE WITH ARDUINO VIA SERIAL COMMUNICATION
+
+// 1. Upload this code to Arduino
+// 2. Open Serial Monitor
+// 3. Run the Serial communication ROS2 Node
+
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (Serial.available() > 0){ // Check if there is any Serial Communication
+    String msg = Serial.readStringUntil('\n'); //if the msg is String.
+    // int data = Serial.read() //if the data is integer
+    // float data = Serail.read() //if data is float
+    Serial.print("Received message: ");
+    Serial.println(msg);
+  }
+}
