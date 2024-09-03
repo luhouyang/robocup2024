@@ -3,18 +3,13 @@
 
   <xacro:macro name="robot_gazebo" params="prefix">
 
-    <!-- =============== Gazebo =============== -->
-    <gazebo>
 
-      <!-- <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin"> -->
-
-      <plugin filename="ign_ros2_control-system" name="ign_ros2_control::IgnitionROS2ControlPlugin">
+    <!-- <gazebo>
+      <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
         <parameters>$(find main_package)/config/robot_config.yaml</parameters>
+        <parameters>$(find main_package)/params/gaz_ros2_ctl_use_sim.yaml</parameters>
       </plugin>
-      <plugin filename="ignition-gazebo-sensors-system" name="ignition::gazebo::systems::Sensors">
-        <render_engine>ogre2</render_engine>
-      </plugin>
-    </gazebo>
+    </gazebo> -->
 
   </xacro:macro>
 

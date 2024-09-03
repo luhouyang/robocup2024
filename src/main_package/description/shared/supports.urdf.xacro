@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- BASE CORNER -->
+
     <xacro:macro name="corner_frame" params="nameprefix parent bx by bz *origin">
         <joint name="${nameprefix}_joint" type="fixed">
             <parent link="${parent}" />
@@ -34,7 +34,7 @@
         </gazebo>
     </xacro:macro>
 
-    <!-- BASE SIDE -->
+
     <xacro:macro name="side_frame" params="nameprefix bx by bz *origin">
         <joint name="${nameprefix}_joint" type="fixed">
             <parent link="base_link" />
@@ -67,7 +67,7 @@
         </gazebo>
     </xacro:macro>
 
-    <!-- SUPPORT CYLINDER -->
+
     <xacro:macro name="support_cylinder" params="nameprefix parent length radius *origin">
         <joint name="${nameprefix}_joint" type="fixed">
             <parent link="${parent}" />
@@ -99,7 +99,7 @@
         </gazebo>
     </xacro:macro>
 
-    <!-- BASE PLATE -->
+
     <xacro:macro name="base_plate" params="nameprefix parent bx by bz *origin">
         <joint name="${nameprefix}_joint" type="fixed">
             <parent link="${parent}" />

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- LEVEL 3 CENTER -->
+
     <joint name="level_3_center_joint" type="fixed">
         <parent link="base_link" />
         <child link="level_3_center_link" />
@@ -9,22 +9,11 @@
             xyz="${level_3_center_x} ${level_3_center_y} ${level_3_center_z}"
             ryp="0 0 0" />
     </joint>
-    <!-- <link name="level_3_center_link">
-        <visual>
-            <geometry>
-                <box size="${level_3_base_length} ${level_3_base_width} 0.1" />
-            </geometry>
-            <material name="red" />
-        </visual>
-    </link>
-    <gazebo reference="level_3_center_link">
-        <material>Gazebo/Red</material>
-    </gazebo> -->
+
     <link name="level_3_center_link">
     </link>
 
 
-    <!-- DISPLAY -->
     <joint name="display_camera_top_joint" type="fixed">
         <parent link="level_3_center_link" />
         <child link="display_camera_top_link" />
@@ -41,7 +30,7 @@
         <origin xyz="${display_support_radius + display_length/2} 0 -${display_height/2}" rpy="0 0 0" />
     </xacro:display>
 
-    <!-- DISPLAY SUPPORT -->
+
     <xacro:support_cylinder nameprefix="l3_left_support_cylinder"
         parent="level_3_center_link"
         length="${display_support_height}"
@@ -64,7 +53,6 @@
     </xacro:support_cylinder>
 
 
-    <!-- CAMERA -->
     <xacro:depth_camera nameprefix="camera_1"
         parent="display_camera_top_link"
         camera_length="${intel_camera_length}"
@@ -89,7 +77,6 @@
     </xacro:depth_camera>
 
 
-    <!-- MIC -->
     <xacro:mic nameprefix="mic"
         parent="level_3_center_link"
         base_length="${mic_base_length}"
@@ -103,7 +90,6 @@
     </xacro:mic>
 
 
-    <!-- STOP BUTTON -->
     <xacro:stop_button nameprefix="stop_button"
         parent="level_3_center_link"
         length="${stop_button_length}"
@@ -114,7 +100,6 @@
     </xacro:stop_button>
 
 
-    <!-- BASE PLATE -->
     <xacro:base_plate nameprefix="level_3_base_plate"
         parent="level_3_center_link"
         bx="${level_3_base_length}"

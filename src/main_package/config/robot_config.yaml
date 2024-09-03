@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 1000  # Hz
+    update_rate: 1000
 
     omni_wheel_controller:
       type: omni_wheel_controller/OmniWheelController
@@ -13,7 +13,7 @@ omni_wheel_controller:
     omni_wheel_names  : ['wheel0_shaft_joint', 'wheel1_shaft_joint', 'wheel2_shaft_joint', 'wheel3_shaft_joint']
     omni_wheel_angle  : [0.785398, 2.356194, -2.356194, -0.785398]
 
-    omni_wheel_distance : 0.24 # gazebo
+    omni_wheel_distance : 0.24
     wheel_radius : 0.05
 
     odom_frame_id: odom
@@ -28,7 +28,6 @@ omni_wheel_controller:
     publish_limited_velocity: true
     velocity_rolling_window_size: 10
 
-    # limits
     linear.x.has_velocity_limits: true
     linear.x.has_acceleration_limits: false
     linear.x.has_jerk_limits: false

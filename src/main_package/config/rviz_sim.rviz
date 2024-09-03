@@ -4,10 +4,7 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
-        - /Image1
         - /PointCloud21/Topic1
-        - /LaserScan1
       Splitter Ratio: 0.5
     Tree Height: 408
   - Class: rviz_common/Selection
@@ -27,7 +24,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: ""
+    SyncSource: LaserScan
 Visualization Manager:
   Class: ""
   Displays:
@@ -164,6 +161,8 @@ Visualization Manager:
           Value: true
         level_3_center_link:
           Value: true
+        map:
+          Value: true
         mic_base_link:
           Value: true
         mic_link:
@@ -190,124 +189,125 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        odom:
-          base_link:
-            chassis:
-              {}
-            frame_back_corner_bottom_link:
-              {}
-            frame_back_corner_top_link:
-              {}
-            frame_back_left_side_bottom_link:
-              {}
-            frame_back_left_side_top_link:
-              {}
-            frame_front_corner_bottom_link:
-              {}
-            frame_front_corner_top_link:
-              {}
-            frame_front_right_side_bottom_link:
-              {}
-            frame_front_right_side_top_link:
-              {}
-            frame_left_corner_bottom_link:
-              {}
-            frame_left_corner_top_link:
-              {}
-            frame_left_front_side_bottom_link:
-              {}
-            frame_left_front_side_top_link:
-              {}
-            frame_right_back_side_bottom_link:
-              {}
-            frame_right_back_side_top_link:
-              {}
-            frame_right_corner_bottom_link:
-              {}
-            frame_right_corner_top_link:
-              {}
-            level_1_center_link:
-              l1_frame_back_corner_link:
+        map:
+          odom:
+            base_link:
+              chassis:
                 {}
-              l1_frame_front_corner_link:
+              frame_back_corner_bottom_link:
                 {}
-              l1_frame_left_corner_link:
+              frame_back_corner_top_link:
                 {}
-              l1_frame_right_corner_link:
+              frame_back_left_side_bottom_link:
                 {}
-              laser_frame:
+              frame_back_left_side_top_link:
                 {}
-              level_1_base_plate_x_link:
+              frame_front_corner_bottom_link:
                 {}
-              level_1_base_plate_y_link:
+              frame_front_corner_top_link:
                 {}
-            level_2_center_link:
-              cpu_link:
+              frame_front_right_side_bottom_link:
                 {}
-              l1_back_left_support_cylinder_link:
+              frame_front_right_side_top_link:
                 {}
-              l1_back_right_support_cylinder_link:
+              frame_left_corner_bottom_link:
                 {}
-              l1_front_left_support_cylinder_link:
+              frame_left_corner_top_link:
                 {}
-              l1_front_right_support_cylinder_link:
+              frame_left_front_side_bottom_link:
                 {}
-              l2_frame_back_corner_link:
+              frame_left_front_side_top_link:
                 {}
-              l2_frame_front_corner_link:
+              frame_right_back_side_bottom_link:
                 {}
-              l2_frame_left_corner_link:
+              frame_right_back_side_top_link:
                 {}
-              l2_frame_right_corner_link:
+              frame_right_corner_bottom_link:
                 {}
-              level_2_base_plate_x_link:
+              frame_right_corner_top_link:
                 {}
-              level_2_base_plate_y_link:
-                {}
-              network_link:
-                {}
-            level_3_center_link:
-              camera_2_fixture_link:
-                camera_2_link:
-                  camera_2_link_optical:
-                    {}
-              display_camera_top_link:
-                camera_1_fixture_link:
-                  camera_1_link:
-                    camera_1_link_optical:
-                      {}
-                display_link:
+              level_1_center_link:
+                l1_frame_back_corner_link:
                   {}
-              l2_back_left_support_cylinder_link:
-                {}
-              l2_back_right_support_cylinder_link:
-                {}
-              l2_front_left_support_cylinder_link:
-                {}
-              l2_front_right_support_cylinder_link:
-                {}
-              l3_left_support_cylinder_link:
-                {}
-              l3_middle_support_cylinder_link:
-                {}
-              l3_right_support_cylinder_link:
-                {}
-              level_3_base_plate_link:
-                {}
-              mic_base_link:
-                mic_support_link:
-                  mic_link:
+                l1_frame_front_corner_link:
+                  {}
+                l1_frame_left_corner_link:
+                  {}
+                l1_frame_right_corner_link:
+                  {}
+                laser_frame:
+                  {}
+                level_1_base_plate_x_link:
+                  {}
+                level_1_base_plate_y_link:
+                  {}
+              level_2_center_link:
+                cpu_link:
+                  {}
+                l1_back_left_support_cylinder_link:
+                  {}
+                l1_back_right_support_cylinder_link:
+                  {}
+                l1_front_left_support_cylinder_link:
+                  {}
+                l1_front_right_support_cylinder_link:
+                  {}
+                l2_frame_back_corner_link:
+                  {}
+                l2_frame_front_corner_link:
+                  {}
+                l2_frame_left_corner_link:
+                  {}
+                l2_frame_right_corner_link:
+                  {}
+                level_2_base_plate_x_link:
+                  {}
+                level_2_base_plate_y_link:
+                  {}
+                network_link:
+                  {}
+              level_3_center_link:
+                camera_2_fixture_link:
+                  camera_2_link:
+                    camera_2_link_optical:
+                      {}
+                display_camera_top_link:
+                  camera_1_fixture_link:
+                    camera_1_link:
+                      camera_1_link_optical:
+                        {}
+                  display_link:
                     {}
-              stop_button_link:
+                l2_back_left_support_cylinder_link:
+                  {}
+                l2_back_right_support_cylinder_link:
+                  {}
+                l2_front_left_support_cylinder_link:
+                  {}
+                l2_front_right_support_cylinder_link:
+                  {}
+                l3_left_support_cylinder_link:
+                  {}
+                l3_middle_support_cylinder_link:
+                  {}
+                l3_right_support_cylinder_link:
+                  {}
+                level_3_base_plate_link:
+                  {}
+                mic_base_link:
+                  mic_support_link:
+                    mic_link:
+                      {}
+                stop_button_link:
+                  {}
+              wheel0_housing_link:
                 {}
-            wheel0_housing_link:
-              {}
-            wheel1_housing_link:
-              {}
-            wheel2_housing_link:
-              {}
-            wheel3_housing_link:
-              {}
+              wheel1_housing_link:
+                {}
+              wheel2_housing_link:
+                {}
+              wheel3_housing_link:
+                {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -731,6 +731,27 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz_default_plugins/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map
+      Update Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /map_updates
+      Use Timestamp: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -816,4 +837,4 @@ Window Geometry:
     collapsed: false
   Width: 1468
   X: 94
-  Y: 858
+  Y: 753

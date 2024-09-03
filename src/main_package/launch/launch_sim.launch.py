@@ -12,6 +12,7 @@ import launch_ros.descriptions
 from launch_ros.actions import Node
 
 import xacro
+from nav2_common.launch import RewrittenYaml
 
 
 def generate_launch_description():
@@ -23,6 +24,7 @@ def generate_launch_description():
 
     # launch args
     use_sim_time = LaunchConfiguration('use_sim_time')
+    use_ros2_control = LaunchConfiguration('use_ros2_control')
 
     declare_world_launch_arg = DeclareLaunchArgument(
         name='world',
@@ -45,14 +47,23 @@ def generate_launch_description():
                               'robot',
                               'robot.urdf.xacro')
 
-    robot_description_config = xacro.process_file(xacro_file,
-                                                  mappings={'use_sim': 'true'})
+    # robot_description_config = xacro.process_file(xacro_file,
+    #   mappings={'use_sim': 'true'})
+    robot_description_config = Command([
+        'xacro ',
+        xacro_file,
+        ' use_ros2_control:=',
+        use_ros2_control,
+        ' sim_mode:=',
+        use_sim_time
+    ])
 
     # Create a robot_state_publisher node
     params = {
-        'robot_description': robot_description_config.toprettyxml(indent='  '),
+        # 'robot_description': robot_description_config.toxml(),
+        'robot_description': robot_description_config,
         'use_sim_time': use_sim_time,
-        # 'use_ros2_control': 'true'
+        # 'use_ros2_control': use_ros2_control
     }
 
     node_robot_state_publisher = Node(package='robot_state_publisher',
@@ -72,125 +83,134 @@ def generate_launch_description():
                     ]
                 ])
 
-    # gazebo = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource([
-    #         os.path.join(get_package_share_directory('gazebo_ros'),
-    #                      'launch',
-    #                      'gazebo.launch.py')
-    #     ]),
-    #     launch_arguments={
-    #         'extra_gazebo_args': '--ros-args --params-file ' +
-    #         os.path.join(get_package_share_directory(package_name),
-    #                      'params',
-    #                      'gazebo_params.yaml'),
-    #         'world': os.path.join(get_package_share_directory(package_name),
-    #                               'worlds',
-    #                               world_name),
-    #     }.items())
+    gazebo = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(get_package_share_directory('gazebo_ros'),
+                         'launch',
+                         'gazebo.launch.py')
+        ]),
+        launch_arguments={
+            'extra_gazebo_args': '--ros-args --params-file ' +
+            os.path.join(get_package_share_directory(package_name),
+                         'params',
+                         'gazebo_params.yaml'),
+            'world': os.path.join(get_package_share_directory(package_name),
+                                  'worlds',
+                                  world_name),
+        }.items())
 
-    # spawn_entity = Node(
-    #     package='gazebo_ros',
-    #     executable='spawn_entity.py',
-    #     arguments=['-topic',
-    #                'robot_description',
-    #                '-entity',
-    #                'main_package'],
-    #     output='screen')
+    spawn_entity = Node(
+        package='gazebo_ros',
+        executable='spawn_entity.py',
+        arguments=['-topic',
+                   'robot_description',
+                   '-entity',
+                   'main_package'],
+        output='screen')
 
     # robot_description = launch_ros.descriptions.ParameterValue(Command([
     #     'ros2 param get --hide-type /robot_state_publisher robot_description'
     # ]),
     #                                                            value_type=str)
 
-    # # robot_description = Command([
-    # #     'ros2 param get --hide-type /robot_state_publisher robot_description'
-    # # ])
+    robot_description = Command([
+        'ros2 param get --hide-type /robot_state_publisher robot_description'
+    ])
 
-    # controller_params_file = os.path.join(
-    #     get_package_share_directory(package_name),
-    #     'config',
-    #     'robot_config.yaml')
+    controller_params_file = os.path.join(
+        get_package_share_directory(package_name),
+        'config',
+        'robot_config.yaml')
 
-    # controller_manager = Node(
-    #     package='controller_manager',
-    #     executable='ros2_control_node',
-    #     name='controller_manager',
-    #     output='screen',
-    #     parameters=[{
-    #         'controller_params_file': controller_params_file
-    #     }],
-    #     remappings=[('/controller_manager/robot_description',
-    #                  '/robot_description'),
-    #                 ('/controller_manager/load_controller',
-    #                  '/load_controller')])
-
-    # load_omni_wheel_controller = Node(package="controller_manager",
-    #                                   executable="spawner",
-    #                                   arguments=["omni_wheel_controller"])
-
-    # load_joint_state_controller = Node(package="controller_manager",
-    #                                    executable="spawner",
-    #                                    arguments=["joint_state_broadcaster"])
-
-    gazebo = IncludeLaunchDescription(
-        PythonLaunchDescriptionSource([
-            os.path.join(get_package_share_directory('ros_gz_sim'),
-                         'launch'),
-            '/gz_sim.launch.py'
-        ]),
-        launch_arguments=[
-            ('world',
-             os.path.join(get_package_share_directory(package_name),
-                          'worlds',
-                          world_name)),
-            ('gz_args',
-             [
-                 ' -r -v 4 empty.sdf',
-             ]),
-            # ('publish_rate',
-            #  LaunchConfiguration('publish_rate'))
-        ])
-
-    spawn_entity = Node(
-        package='ros_gz_sim',
-        executable='create',
+    controller_manager = Node(
+        package='controller_manager',
+        executable='ros2_control_node',
+        name='controller_manager',
         output='screen',
-        arguments=['-topic',
-                   'robot_description',
-                   '-entity',
-                   'main_package'],
+        parameters=[{
+            'robot_description': robot_description
+        },
+                    controller_params_file]
+        # parameters=[{
+        #     'controller_params_file': controller_params_file
+        # }],
+        # remappings=[
+        #     ('/controller_manager/robot_description',
+        #      '/robot_description'),
+        #     # ('/controller_manager/load_controller',
+        #     #  '/load_controller')
+        # ]
     )
 
-    load_joint_state_controller = ExecuteProcess(cmd=[
-        'ros2',
-        'control',
-        'load_controller',
-        '--set-state',
-        'active',
-        'joint_state_broadcaster'
-    ],
-                                                 output='screen')
+    load_omni_wheel_controller = Node(package="controller_manager",
+                                      executable="spawner",
+                                      arguments=["omni_wheel_controller"])
 
-    load_omni_wheel_controller = ExecuteProcess(cmd=[
-        'ros2',
-        'control',
-        'load_controller',
-        '--set-state',
-        'active',
-        'omni_wheel_controller'
-    ],
-                                                output='screen')
+    load_joint_state_controller = Node(package="controller_manager",
+                                       executable="spawner",
+                                       arguments=["joint_state_broadcaster"])
 
-    # delayed_controller_manager = TimerAction(period=1.0,
-    #                                          actions=[controller_manager])
+    # gazebo = IncludeLaunchDescription(
+    #     PythonLaunchDescriptionSource([
+    #         os.path.join(get_package_share_directory('ros_gz_sim'),
+    #                      'launch'),
+    #         '/gz_sim.launch.py'
+    #     ]),
+    #     launch_arguments=[
+    #         ('world',
+    #          os.path.join(get_package_share_directory(package_name),
+    #                       'worlds',
+    #                       world_name)),
+    #         ('gz_args',
+    #          [
+    #              ' -r -v 4 empty.sdf',
+    #          ]),
+    #         # ('publish_rate',
+    #         #  LaunchConfiguration('publish_rate'))
+    #     ])
 
-    # delayed_load_omni_wheel_controller_handler = RegisterEventHandler(
-    #     OnProcessStart(target_action=controller_manager,
-    #                    on_start=[load_omni_wheel_controller]))
+    # spawn_entity = Node(
+    #     package='ros_gz_sim',
+    #     executable='create',
+    #     output='screen',
+    #     arguments=['-topic',
+    #                'robot_description',
+    #                '-entity',
+    #                'main_package'],
+    # )
 
-    # delayed_load_joint_state_controller_handler = RegisterEventHandler(
-    #     OnProcessStart(target_action=controller_manager,
-    #                    on_start=[load_joint_state_controller]))
+    # load_joint_state_controller = ExecuteProcess(cmd=[
+    #     'ros2',
+    #     'control',
+    #     'load_controller',
+    #     '--set-state',
+    #     'active',
+    #     'joint_state_broadcaster'
+    # ],
+    #                                              output='screen')
+
+    # load_omni_wheel_controller = ExecuteProcess(cmd=[
+    #     'ros2',
+    #     'control',
+    #     'load_controller',
+    #     '--set-state',
+    #     'active',
+    #     'omni_wheel_controller'
+    # ],
+    #                                             output='screen')
+
+    delayed_controller_manager = TimerAction(period=1.0,
+                                             actions=[controller_manager])
+
+    delayed_load_omni_wheel_controller_handler = RegisterEventHandler(
+        OnProcessStart(target_action=controller_manager,
+                       on_start=[load_omni_wheel_controller]))
+    # 'world': os.path.join(get_package_share_directory(package_name),
+    #                       'worlds',
+    #                       world_name),
+    delayed_load_joint_state_controller_handler = RegisterEventHandler(
+        OnProcessStart(target_action=controller_manager,
+                       on_start=[load_joint_state_controller]))
 
     # Bridge
     # bridge = Node(
@@ -204,15 +224,15 @@ def generate_launch_description():
     #     ],
     #     output='screen')
 
-    bridge = Node(
-        package='ros_gz_image',
-        executable='image_bridge',
-        arguments=[
-            '/camera_1/image_raw',
-            '/camera_2/image_raw',
-        ],
-        output='screen',
-    )
+    # bridge = Node(
+    #     package='ros_gz_image',
+    #     executable='image_bridge',
+    #     arguments=[
+    #         '/camera_1/image_raw',
+    #         '/camera_2/image_raw',
+    #     ],
+    #     output='screen',
+    # )
 
     velocity_converter = Node(
         package='velocity_pub',
@@ -224,29 +244,93 @@ def generate_launch_description():
         ],
     )
 
+    # map_yaml_file = LaunchConfiguration('map')
+    # autostart = LaunchConfiguration('autostart')
+    # params_file = LaunchConfiguration('params_file')
+    # lifecycle_nodes = ['map_server', 'amcl']
+    # remappings = [('/tf', 'tf'), ('/tf_static', 'tf_static')]
+
+    # # Create our own temporary YAML files that include substitutions
+    # param_substitutions = {
+    #     'use_sim_time': use_sim_time,
+    #     'yaml_filename': map_yaml_file
+    # }
+
+    # configured_params = RewrittenYaml(source_file=params_file,
+    #                                   root_key='',
+    #                                   param_rewrites=param_substitutions,
+    #                                   convert_types=True)
+
     return LaunchDescription([
         DeclareLaunchArgument('use_sim_time',
                               default_value='true',
                               description='Use sim time if true'),
+        DeclareLaunchArgument('use_ros2_control',
+                              default_value='true',
+                              description='Use ros2_control if true'),
         DeclareLaunchArgument('publish_rate',
                               default_value='1000.0',
                               description='Publish rate'),
-        RegisterEventHandler(
-            event_handler=OnProcessExit(target_action=spawn_entity,
-                                        on_exit=load_joint_state_controller)),
-        RegisterEventHandler(event_handler=OnProcessExit(
-            target_action=load_joint_state_controller,
-            on_exit=[load_omni_wheel_controller],
-        )),
+        # DeclareLaunchArgument(
+        #     'map',
+        #     default_value=os.path.join(
+        #         get_package_share_directory(package_name),
+        #         'maps',
+        #         'turtlebot3_world.yaml'),
+        #     description='Full path to map yaml file to load'),
+        # DeclareLaunchArgument(
+        #     'autostart',
+        #     default_value='true',
+        #     description='Automatically startup the nav2 stack'),
+        # DeclareLaunchArgument(
+        #     'params_file',
+        #     default_value=os.path.join(
+        #         get_package_share_directory(package_name),
+        #         'config',
+        #         'nav2_params.yaml'),
+        #     description='Full path to the ROS2 parameters file to use'),
+
+        # RegisterEventHandler(
+        #     event_handler=OnProcessExit(target_action=controller_manager,
+        #                                 on_exit=load_joint_state_controller)),
+        # RegisterEventHandler(event_handler=OnProcessExit(
+        #     target_action=controller_manager,
+        #     on_exit=[load_omni_wheel_controller],
+        # )),
         declare_world_launch_arg,
         declare_rviz_launch_arg,
         gazebo,
         node_robot_state_publisher,
         spawn_entity,
-        # delayed_controller_manager,
-        # delayed_load_omni_wheel_controller_handler,
-        # delayed_load_joint_state_controller_handler,
-        bridge,
+        delayed_controller_manager,
+        delayed_load_omni_wheel_controller_handler,
+        delayed_load_joint_state_controller_handler,
+        # bridge,
         velocity_converter,
         rviz,
+        # Node(package='nav2_map_server',
+        #      executable='map_server',
+        #      name='map_server',
+        #      output='screen',
+        #      parameters=[configured_params],
+        #      remappings=remappings),
+        # Node(package='nav2_amcl',
+        #      executable='amcl',
+        #      name='amcl',
+        #      output='screen',
+        #      parameters=[configured_params],
+        #      remappings=remappings),
+        # Node(package='nav2_lifecycle_manager',
+        #      executable='lifecycle_manager',
+        #      name='lifecycle_manager_localization',
+        #      output='screen',
+        #      parameters=[{
+        #          'use_sim_time': use_sim_time
+        #      },
+        #                  {
+        #                      'autostart': autostart
+        #                  },
+        #                  {
+        #                      'node_names': lifecycle_nodes
+        #                  }])
     ])

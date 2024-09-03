@@ -47,6 +47,8 @@ https://github.com/IntelRealSense/realsense-ros
 
 ## meshlab: https://www.cloudcompare.org
 
+## audio: https://github.com/mgonzs13/audio_common
+
 ## [INSTALLS]
 ```
 sudo apt update
@@ -60,6 +62,8 @@ sudo apt install ros-humble-twist-mux
 sudo apt install ros-humble-slam-toolbox
 sudo apt install ros-humble-navigation2 ros-humble-nav2-bringup
 sudo apt install ros-humble-ros-gz
+sudo apt install ros-humble-gazebo-ros-pkgs
+sudo apt install ros-humble-ros2-control ros-humble-ros2-controllers ros-humble-gazebo-ros2-control
 ```
 
 ## [TUTORIAL INSTALLS]
@@ -182,3 +186,66 @@ Change "params_declare -> 'FILE_NAME'" to the appropriate .yaml file from params
 1. Velocity publisher from example: https://github.com/hijimasa/omni_wheel_controller_sample/tree/main
 
 1. Working version of packages is included, run `colcon build` from workspace root only.
+
+1. Info
+```
+    # Topic: /joint_states
+
+    ## Left Spin In Place
+
+    header:
+    stamp:
+        sec: 1499
+        nanosec: 54000000
+    frame_id: ''
+    name:
+    - wheel0_shaft_joint
+    - wheel1_shaft_joint
+    - wheel2_shaft_joint
+    - wheel3_shaft_joint
+    position:
+    - -7218.228571608138
+    - -6755.156594802749
+    - -7265.258190252658
+    - -6821.34946339218
+    velocity:
+    - -79.18731688693963
+    - -79.18777725259231
+    - -79.2113001734645
+    - -79.2116260709436
+    effort:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    ---
+
+    ## Moving In A Straight Line
+
+    header:
+    stamp:
+        sec: 1357
+        nanosec: 990000000
+    frame_id: ''
+    name:
+    - wheel0_shaft_joint
+    - wheel1_shaft_joint
+    - wheel2_shaft_joint
+    - wheel3_shaft_joint
+    position:
+    - -90.17730397791074
+    - -1369.1110855908364
+    - 763.0103951699043
+    - 694.043253808813
+    velocity:
+    - -23.84312982487037
+    - -116.67396775479612
+    - 27.283205553859798
+    - 15.142812589465766
+    effort:
+    - 0.0
+    - 0.0
+    - 0.0
+    - 0.0
+    ---
+```

@@ -2,17 +2,17 @@
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
 
     <xacro:arg name="prefix" default="" />
-    <xacro:arg name="use_sim" default="false" />
+    <xacro:arg name="use_sim" default="true" />
 
     <xacro:property name="package_name" value="main_package" />
 
-    <!-- SHARED -->
+
     <xacro:include filename="$(find ${package_name})/description/shared/inertial_macros.xacro" />
     <xacro:include filename="$(find ${package_name})/description/shared/materials.xacro" />
     <xacro:include filename="$(find ${package_name})/description/shared/properties.xacro" />
     <xacro:include filename="$(find ${package_name})/description/shared/supports.urdf.xacro" />
 
-    <!-- FUNCTIONAL -->
+
     <xacro:include filename="$(find ${package_name})/description/functional/depth_camera.urdf.xacro" />
     <xacro:include filename="$(find ${package_name})/description/functional/display.urdf.xacro" />
     <xacro:include filename="$(find ${package_name})/description/functional/lidar.urdf.xacro" />
@@ -20,17 +20,16 @@
     <xacro:include filename="$(find ${package_name})/description/functional/stop_button.urdf.xacro" />
     <xacro:include filename="$(find ${package_name})/description/functional/wheel/wheel_100mm_light.urdf.xacro" />
 
-    <!-- ROBOT -->
+
     <xacro:include filename="$(find ${package_name})/description/robot/robot_core.xacro" />
     <xacro:include filename="$(find ${package_name})/description/robot/robot_level_1.xacro" />
     <xacro:include filename="$(find ${package_name})/description/robot/robot_level_2.xacro" />
     <xacro:include filename="$(find ${package_name})/description/robot/robot_level_3.xacro" />
 
-    <!-- GAZEBO -->
+
     <xacro:include filename="$(find ${package_name})/description/gazebo/robot_gazebo.gazebo.xacro" />
     <xacro:robot_gazebo prefix="" />
 
-    <!-- ROS2 CONTROL -->
     <xacro:include filename="$(find ${package_name})/description/ros2_control/robot_ros2.ros2_control.xacro" />
     <xacro:robot_ros2_control name="robot" use_sim="$(arg use_sim)" />
 

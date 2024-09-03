@@ -13,9 +13,8 @@
         </xacro:if>
         <xacro:if value="${use_sim}">
 
-          <!-- <plugin>gz_ros2_control/GazeboSimSystem</plugin> -->
 
-          <plugin>ign_ros2_control/IgnitionSystem</plugin>
+          <plugin>gazebo_ros2_control/GazeboSystem</plugin>
         </xacro:if>
       </hardware>
       <joint name="wheel0_shaft_joint">
@@ -64,6 +63,14 @@
       </joint>
     </ros2_control>
 
+
   </xacro:macro>
+
+  <gazebo>
+    <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
+      <parameters>$(find main_package)/config/robot_config.yaml</parameters>
+      <parameters>$(find main_package)/params/gaz_ros2_ctl_use_sim.yaml</parameters>
+    </plugin>
+  </gazebo>
 
 </robot>

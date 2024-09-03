@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-    <!-- LEVEL 1 CENTER -->
+
     <joint name="level_1_center_joint" type="fixed">
         <parent link="base_link" />
         <child link="level_1_center_link" />
@@ -9,22 +9,11 @@
             xyz="${level_1_center_x} ${level_1_center_y} ${level_1_center_z}"
             ryp="0 0 0" />
     </joint>
-    <!-- <link name="level_1_center_link">
-        <visual>
-            <geometry>
-                <box size="${level_1_base_length} ${level_1_base_width} 0.1" />
-            </geometry>
-            <material name="red" />
-        </visual>
-    </link>
-    <gazebo reference="level_1_center_link">
-        <material>Gazebo/Red</material>
-    </gazebo> -->
+
     <link name="level_1_center_link">
     </link>
 
 
-    <!-- LIDAR -->
     <xacro:lidar nameprefix="laser"
         parent="level_1_center_link"
         length="${lidar_length}"
@@ -35,7 +24,6 @@
     </xacro:lidar>
 
 
-    <!-- BASE PLATE -->
     <xacro:base_plate nameprefix="level_1_base_plate_x"
         parent="level_1_center_link"
         bx="${level_1_base_length}"
@@ -55,8 +43,6 @@
     </xacro:base_plate>
 
 
-    <!-- CORNER -->
-    <!-- left corner -->
     <xacro:corner_frame nameprefix="l1_frame_left_corner"
         parent="level_1_center_link"
         bx="${level_1_corner_length}"
@@ -67,7 +53,7 @@
             rpy="0 0 0.785" />
     </xacro:corner_frame>
 
-    <!-- front corner -->
+
     <xacro:corner_frame nameprefix="l1_frame_front_corner"
         parent="level_1_center_link"
         bx="${level_1_corner_length}"
@@ -78,7 +64,7 @@
             rpy="0 0 -0.785" />
     </xacro:corner_frame>
 
-    <!-- right corner -->
+
     <xacro:corner_frame nameprefix="l1_frame_right_corner"
         parent="level_1_center_link"
         bx="${level_1_corner_length}"
@@ -89,7 +75,7 @@
             rpy="0 0 0.785" />
     </xacro:corner_frame>
 
-    <!-- back corner -->
+
     <xacro:corner_frame nameprefix="l1_frame_back_corner"
         parent="level_1_center_link"
         bx="${level_1_corner_length}"
@@ -101,7 +87,6 @@
     </xacro:corner_frame>
 
 
-    <!-- SUPPORT -->
     <xacro:support_cylinder nameprefix="l1_front_left_support_cylinder"
         parent="level_2_center_link"
         length="${level_1_support_height}"
