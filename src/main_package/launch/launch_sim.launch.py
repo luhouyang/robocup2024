@@ -21,10 +21,12 @@ def generate_launch_description():
     package_name = 'main_package'
     world_name = 'world_sim.world'
     rviz_name = 'rviz_sim.rviz'
+    params_file_name = 'mapper_params_online_async.yaml'
 
     # launch args
     use_sim_time = LaunchConfiguration('use_sim_time')
     use_ros2_control = LaunchConfiguration('use_ros2_control')
+    slam_params_file = LaunchConfiguration('params_file')
 
     declare_world_launch_arg = DeclareLaunchArgument(
         name='world',
@@ -83,6 +85,14 @@ def generate_launch_description():
                     ]
                 ])
 
+    gz_params_file = os.path.join(get_package_share_directory(package_name),
+                                  'params',
+                                  'gazebo_params.yaml')
+
+    gz_world_file = os.path.join(get_package_share_directory(package_name),
+                                 'worlds',
+                                 world_name)
+
     gazebo = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             os.path.join(get_package_share_directory('gazebo_ros'),
@@ -90,13 +100,8 @@ def generate_launch_description():
                          'gazebo.launch.py')
         ]),
         launch_arguments={
-            'extra_gazebo_args': '--ros-args --params-file ' +
-            os.path.join(get_package_share_directory(package_name),
-                         'params',
-                         'gazebo_params.yaml'),
-            'world': os.path.join(get_package_share_directory(package_name),
-                                  'worlds',
-                                  world_name),
+            'extra_gazebo_args': '--ros-args --params-file ' + gz_params_file,
+            'world': gz_world_file
         }.items())
 
     spawn_entity = Node(
@@ -244,6 +249,17 @@ def generate_launch_description():
         ],
     )
 
+    slam_toolbox = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(get_package_share_directory("slam_toolbox")),
+            '/launch',
+            '/online_async_launch.py'
+        ]),
+        launch_arguments={
+            'params_file': slam_params_file,
+            'use_sim_time': use_sim_time
+        }.items())
+
     # map_yaml_file = LaunchConfiguration('map')
     # autostart = LaunchConfiguration('autostart')
     # params_file = LaunchConfiguration('params_file')
@@ -271,6 +287,12 @@ def generate_launch_description():
         DeclareLaunchArgument('publish_rate',
                               default_value='1000.0',
                               description='Publish rate'),
+        DeclareLaunchArgument('params_file',
+                              default_value=os.path.join(
+                                  get_package_share_directory("main_package"),
+                                  'config',
+                                  params_file_name),
+                              description='Full path to params file'),
         # DeclareLaunchArgument(
         #     'map',
         #     default_value=os.path.join(
@@ -302,12 +324,15 @@ def generate_launch_description():
         gazebo,
         node_robot_state_publisher,
         spawn_entity,
-        delayed_controller_manager,
-        delayed_load_omni_wheel_controller_handler,
-        delayed_load_joint_state_controller_handler,
+        load_omni_wheel_controller,
+        load_joint_state_controller,
+        # delayed_controller_manager,
+        # delayed_load_omni_wheel_controller_handler,
+        # delayed_load_joint_state_controller_handler,
         # bridge,
         velocity_converter,
         rviz,
+        slam_toolbox,
         # Node(package='nav2_map_server',
         #      executable='map_server',
         #      name='map_server',
