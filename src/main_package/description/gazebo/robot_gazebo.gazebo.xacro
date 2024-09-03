@@ -3,13 +3,8 @@
 
   <xacro:macro name="robot_gazebo" params="prefix">
 
-
-    <!-- <gazebo>
-      <plugin name="gazebo_ros2_control" filename="libgazebo_ros2_control.so">
-        <parameters>$(find main_package)/config/robot_config.yaml</parameters>
-        <parameters>$(find main_package)/params/gaz_ros2_ctl_use_sim.yaml</parameters>
-      </plugin>
-    </gazebo> -->
+    <gazebo>
+    </gazebo>
 
   </xacro:macro>
 
