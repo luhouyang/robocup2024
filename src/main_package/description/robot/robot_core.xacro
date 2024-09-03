@@ -44,28 +44,28 @@
     </gazebo>
 
 
-    <xacro:omni_wheel prefix="wheel3" parent="base_link">
+    <xacro:omni_wheel prefix="wheel1" parent="base_link">
         <origin
             xyz="-${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${pi*3/4}" />
 
     </xacro:omni_wheel>
 
-    <xacro:omni_wheel prefix="wheel2" parent="base_link">
+    <xacro:omni_wheel prefix="wheel0" parent="base_link">
         <origin
             xyz="${chassis_inner_length/2 + wheel_thickness/2} ${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${pi/4}" />
 
     </xacro:omni_wheel>
 
-    <xacro:omni_wheel prefix="wheel1" parent="base_link">
+    <xacro:omni_wheel prefix="wheel3" parent="base_link">
         <origin
             xyz="-${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${-pi*3/4}" />
 
     </xacro:omni_wheel>
 
-    <xacro:omni_wheel prefix="wheel0" parent="base_link">
+    <xacro:omni_wheel prefix="wheel2" parent="base_link">
         <origin
             xyz="${chassis_inner_length/2 + wheel_thickness/2} -${chassis_inner_width/2 + wheel_thickness/2} ${wheel_radius/2}"
             rpy="0 ${pi/2} ${-pi/4}" />

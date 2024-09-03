@@ -5,7 +5,7 @@
     <xacro:property name="metal_thickness" value="0.003" />
     <xacro:property name="metal_density" value="7850.0" />
 
-    <xacro:property name="wheel_radius" value="0.050" />
+    <xacro:property name="wheel_radius" value="0.0675" />
     <xacro:property name="wheel_thickness" value="0.04" />
     <xacro:property name="wheel_padding" value="0.005" />
 
@@ -13,16 +13,16 @@
     <xacro:property name="chassis_length" value="0.500" />
     <xacro:property name="chassis_width" value="0.500" />
 
-    <xacro:property name="chassis_inner_length" value="0.272" />
-    <xacro:property name="chassis_inner_width" value="0.272" />
+    <xacro:property name="chassis_inner_length" value="0.275" />
+    <xacro:property name="chassis_inner_width" value="0.275" />
 
     <xacro:property name="chassis_outer_side" value="0.272" />
-    <xacro:property name="chassis_outer_corner" value="0.162" />
+    <xacro:property name="chassis_outer_corner" value="0.160" />
     <xacro:property name="chassis_corner_margin" value="0.080" />
     <xacro:property name="chassis_outer_thickness" value="0.020" />
 
-    <xacro:property name="chassis_height" value="0.120" />
-    <xacro:property name="chassis_clearance" value="0.050" />
+    <xacro:property name="chassis_height" value="0.140" />
+    <xacro:property name="chassis_clearance" value="0.020" />
 
     <xacro:property name="chassis_empty_space_length" value="${(chassis_length - chassis_outer_thickness*4)/3}" />
     <xacro:property name="chassis_empty_space_width" value="${(chassis_width - chassis_outer_thickness*4)/3}" />
@@ -160,7 +160,7 @@
     <xacro:property name="mic_length" value="0.150" />
     <xacro:property name="mic_radius" value="0.015" />
 
-    <xacro:property name="mic_weight" value="0.200" />
+    <xacro:property name="mic_weight" value="0.05" />
 
     <xacro:property name="mic_offset_x" value="0.030" />
     <xacro:property name="mic_offset_y" value="0.070" />

@@ -75,6 +75,15 @@
         <material>Gazebo/Green</material>
     </gazebo>
 
+    <xacro:temparm
+        nameprefix="temparm"
+        parent="level_2_center_link"
+        bx="0.05"
+        by="0.05"
+        bz="0.5"
+        mass="4.5">
+        <origin xyz="0.2 0 0.253" rpy="0 0 0" />
+    </xacro:temparm>
 
     <xacro:base_plate nameprefix="level_2_base_plate_x"
         parent="level_2_center_link"
