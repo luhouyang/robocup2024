@@ -13,6 +13,44 @@
         </xacro:if>
 
         <xacro:unless value="${use_sim}">
+          <plugin>omni_wheel_controller/RobotSystem</plugin>
+          <param name="omni_wheel_names">
+            ['wheel0_shaft_joint', 'wheel1_shaft_joint', 'wheel2_shaft_joint', 'wheel3_shaft_joint']
+          </param>
+
+          <param name="omni_wheel_angle">[0.785398, 2.356194, -2.356194, -0.785398]</param>
+          <param name="omni_wheel_distance">0.22</param>
+          <param name="wheel_radius">0.0675</param>
+          <param name="odom_frame_id">odom</param>
+          <param name="base_frame_id">base_link</param>
+          <param name="pose_covariance_diagonal">[0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]</param>
+          <param name="twist_covariance_diagonal">[0.001, 0.001, 1000000.0, 1000000.0, 1000000.0, 1000.0]</param>
+
+          <param name="enable_odom_tf">true</param>
+
+          <param name="cmd_vel_timeout">3.0</param>
+          <param name="publish_limited_velocity">true</param>
+          <param name="velocity_rolling_window_size">10</param>
+
+          <param name="linear.x.has_velocity_limits">true</param>
+          <param name="linear.x.has_acceleration_limits">false</param>
+          <param name="linear.x.has_jerk_limits">false</param>
+          <param name="linear.x.max_velocity">1.0</param>
+          <param name="linear.x.min_velocity">-1.0</param>
+          <param name="linear.x.max_acceleration">0.4</param>
+          <param name="linear.x.min_acceleration">-0.4</param>
+          <param name="linear.x.max_jerk">0.5</param>
+          <param name="linear.x.min_jerk">-0.5</param>
+
+          <param name="linear.z.has_velocity_limits">true</param>
+          <param name="linear.z.has_acceleration_limits">false</param>
+          <param name="linear.z.has_jerk_limits">false</param>
+          <param name="linear.z.max_velocity">1.0</param>
+          <param name="linear.z.min_velocity">-1.0</param>
+          <param name="linear.z.max_acceleration">0.4</param>
+          <param name="linear.z.min_acceleration">-0.4</param>
+          <param name="linear.z.max_jerk">0.5</param>
+          <param name="linear.z.min_jerk">-0.5</param>
         </xacro:unless>
 
         <xacro:if value="${use_sim}">
@@ -64,7 +102,6 @@
         <state_interface name="effort" />
       </joint>
     </ros2_control>
-
 
   </xacro:macro>
 

@@ -4,3 +4,4 @@ log
 temp
 
 *.code-workspace
+.env

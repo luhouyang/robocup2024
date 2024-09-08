@@ -34,6 +34,7 @@ add_library(omni_wheel_controller SHARED
   src/omni_wheel_controller.cpp
   src/odometry.cpp
   src/speed_limiter.cpp
+  src/omni_wheel_hardware.cpp
 )
 target_compile_features(omni_wheel_controller PUBLIC cxx_std_17)
 target_include_directories(omni_wheel_controller PUBLIC
@@ -46,6 +47,7 @@ ament_target_dependencies(omni_wheel_controller PUBLIC ${THIS_PACKAGE_INCLUDE_DE
 # Causes the visibility macros to use dllexport rather than dllimport,
 # which is appropriate when building the dll but not consuming it.
 target_compile_definitions(omni_wheel_controller PRIVATE "OMNI_WHEEL_CONTROLLER_BUILDING_DLL")
+pluginlib_export_plugin_description_file(hardware_interface omni_wheel_plugin.xml)
 pluginlib_export_plugin_description_file(controller_interface omni_wheel_plugin.xml)
 
 if(BUILD_TESTING)

@@ -3,16 +3,12 @@ import os
 from ament_index_python import get_package_share_directory
 
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, RegisterEventHandler, ExecuteProcess, TimerAction
-from launch.event_handlers import OnProcessExit, OnProcessStart
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, RegisterEventHandler, TimerAction
+from launch.event_handlers import OnProcessStart
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, Command
 
-import launch_ros.descriptions
 from launch_ros.actions import Node
-
-import xacro
-from nav2_common.launch import RewrittenYaml
 
 
 def generate_launch_description():
@@ -49,23 +45,16 @@ def generate_launch_description():
                               'robot',
                               'robot.urdf.xacro')
 
-    # robot_description_config = xacro.process_file(xacro_file,
-    #   mappings={'use_sim': 'true'})
-    robot_description_config = Command([
-        'xacro ',
-        xacro_file,
-        ' use_ros2_control:=',
-        use_ros2_control,
-        ' sim_mode:=',
-        use_sim_time
-    ])
+    robot_description_config = Command(
+        ['xacro ',
+         xacro_file,
+         ' sim_mode:=',
+         use_sim_time])
 
     # Create a robot_state_publisher node
     params = {
-        # 'robot_description': robot_description_config.toxml(),
         'robot_description': robot_description_config,
         'use_sim_time': use_sim_time,
-        # 'use_ros2_control': use_ros2_control
     }
 
     node_robot_state_publisher = Node(package='robot_state_publisher',
@@ -113,11 +102,6 @@ def generate_launch_description():
                    'main_package'],
         output='screen')
 
-    # robot_description = launch_ros.descriptions.ParameterValue(Command([
-    #     'ros2 param get --hide-type /robot_state_publisher robot_description'
-    # ]),
-    #                                                            value_type=str)
-
     robot_description = Command([
         'ros2 param get --hide-type /robot_state_publisher robot_description'
     ])
@@ -127,25 +111,14 @@ def generate_launch_description():
         'config',
         'robot_config.yaml')
 
-    controller_manager = Node(
-        package='controller_manager',
-        executable='ros2_control_node',
-        name='controller_manager',
-        output='screen',
-        parameters=[{
-            'robot_description': robot_description
-        },
-                    controller_params_file]
-        # parameters=[{
-        #     'controller_params_file': controller_params_file
-        # }],
-        # remappings=[
-        #     ('/controller_manager/robot_description',
-        #      '/robot_description'),
-        #     # ('/controller_manager/load_controller',
-        #     #  '/load_controller')
-        # ]
-    )
+    controller_manager = Node(package='controller_manager',
+                              executable='ros2_control_node',
+                              name='controller_manager',
+                              output='screen',
+                              parameters=[{
+                                  'robot_description': robot_description
+                              },
+                                          controller_params_file])
 
     load_omni_wheel_controller = Node(package="controller_manager",
                                       executable="spawner",
@@ -155,89 +128,16 @@ def generate_launch_description():
                                        executable="spawner",
                                        arguments=["joint_state_broadcaster"])
 
-    # gazebo = IncludeLaunchDescription(
-    #     PythonLaunchDescriptionSource([
-    #         os.path.join(get_package_share_directory('ros_gz_sim'),
-    #                      'launch'),
-    #         '/gz_sim.launch.py'
-    #     ]),
-    #     launch_arguments=[
-    #         ('world',
-    #          os.path.join(get_package_share_directory(package_name),
-    #                       'worlds',
-    #                       world_name)),
-    #         ('gz_args',
-    #          [
-    #              ' -r -v 4 empty.sdf',
-    #          ]),
-    #         # ('publish_rate',
-    #         #  LaunchConfiguration('publish_rate'))
-    #     ])
-
-    # spawn_entity = Node(
-    #     package='ros_gz_sim',
-    #     executable='create',
-    #     output='screen',
-    #     arguments=['-topic',
-    #                'robot_description',
-    #                '-entity',
-    #                'main_package'],
-    # )
-
-    # load_joint_state_controller = ExecuteProcess(cmd=[
-    #     'ros2',
-    #     'control',
-    #     'load_controller',
-    #     '--set-state',
-    #     'active',
-    #     'joint_state_broadcaster'
-    # ],
-    #                                              output='screen')
-
-    # load_omni_wheel_controller = ExecuteProcess(cmd=[
-    #     'ros2',
-    #     'control',
-    #     'load_controller',
-    #     '--set-state',
-    #     'active',
-    #     'omni_wheel_controller'
-    # ],
-    #                                             output='screen')
-
     delayed_controller_manager = TimerAction(period=1.0,
                                              actions=[controller_manager])
 
     delayed_load_omni_wheel_controller_handler = RegisterEventHandler(
         OnProcessStart(target_action=controller_manager,
                        on_start=[load_omni_wheel_controller]))
-    # 'world': os.path.join(get_package_share_directory(package_name),
-    #                       'worlds',
-    #                       world_name),
+
     delayed_load_joint_state_controller_handler = RegisterEventHandler(
         OnProcessStart(target_action=controller_manager,
                        on_start=[load_joint_state_controller]))
-
-    # Bridge
-    # bridge = Node(
-    #     package='ros_gz_bridge',
-    #     executable='parameter_bridge',
-    #     arguments=[
-    #         '/camera_1/camera_info@sensor_msgs/msg/CameraInfo@ignition.msgs.CameraInfo',
-    #         '/camera_1/image_raw@sensor_msgs/msg/Image@ignition.msgs.Image',
-    #         # '/camera_2/camera_info@sensor_msgs/msg/CameraInfo@ignition.msgs.CameraInfo',
-    #         # '/camera_2/image_raw@sensor_msgs/msg/Image@ignition.msgs.Image',
-    #     ],
-    #     output='screen')
-
-    # bridge = Node(
-    #     package='ros_gz_image',
-    #     executable='image_bridge',
-    #     arguments=[
-    #         '/camera_1/image_raw',
-    #         '/camera_2/image_raw',
-    #     ],
-    #     output='screen',
-    # )
 
     velocity_converter = Node(
         package='velocity_pub',
@@ -249,6 +149,26 @@ def generate_launch_description():
         ],
     )
 
+    joystick = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource([
+            os.path.join(get_package_share_directory(package_name),
+                         'launch',
+                         'joystick.launch.py')
+        ]),
+        launch_arguments={'use_sim_time': 'true'}.items())
+
+    twist_mux_params = os.path.join(get_package_share_directory(package_name),
+                                    'config',
+                                    'twist_mux.yaml')
+    twist_mux = Node(package="twist_mux",
+                     executable="twist_mux",
+                     parameters=[twist_mux_params,
+                                 {
+                                     'use_sim_time': True
+                                 }],
+                     remappings=[('/cmd_vel_out',
+                                  '/omni_wheel_controller/cmd_vel')])
+
     slam_toolbox = IncludeLaunchDescription(
         PythonLaunchDescriptionSource([
             os.path.join(get_package_share_directory("slam_toolbox")),
@@ -256,109 +176,46 @@ def generate_launch_description():
             '/online_async_launch.py'
         ]),
         launch_arguments={
-            'params_file': slam_params_file,
+            'slam_params_file': slam_params_file,
             'use_sim_time': use_sim_time
         }.items())
 
-    # map_yaml_file = LaunchConfiguration('map')
-    # autostart = LaunchConfiguration('autostart')
-    # params_file = LaunchConfigurationmapping'params_file')
-    # lifecycle_nodes = ['map_server', 'amcl']
-    # remappings = [('/tf', 'tf'), ('/tf_static', 'tf_static')]
-
-    # # Create our own temporary YAML files that include substitutions
-    # param_substitutions = {
-    #     'use_sim_time': use_sim_time,
-    #     'yaml_filename': map_yaml_file
-    # }
-
-    # configured_params = RewrittenYaml(source_file=params_file,
-    #                                   root_key='',
-    #                                   param_rewrites=param_substitutions,
-    #                                   convert_types=True)
+    realsense = IncludeLaunchDescription(PythonLaunchDescriptionSource([
+        os.path.join(get_package_share_directory("realsense2_camera")),
+        '/launch',
+        '/rs_launch.py'
+    ]),
+                                         launch_arguments={
+                                             'pointcloud.enable': 'true',
+                                         }.items())
 
     return LaunchDescription([
         DeclareLaunchArgument('use_sim_time',
-                              default_value='false',
+                              default_value='true',
                               description='Use sim time if true'),
         DeclareLaunchArgument('use_ros2_control',
                               default_value='true',
                               description='Use ros2_control if true'),
         DeclareLaunchArgument('publish_rate',
                               default_value='1000.0',
-                              description='Publish rate'),
+                              description='Publish rate'), # Bridge
         DeclareLaunchArgument('params_file',
                               default_value=os.path.join(
                                   get_package_share_directory("main_package"),
                                   'config',
                                   params_file_name),
                               description='Full path to params file'),
-        DeclareLaunchArgument('mapping',
-                              default_value='true',
-                              description='Mapping'),
-        # DeclareLaunchArgument(
-        #     'map',
-        #     default_value=os.path.join(
-        #         get_package_share_directory(package_name),
-        #         'maps',
-        #         'turtlebot3_world.yaml'),
-        #     description='Full path to map yaml file to load'),
-        # DeclareLaunchArgument(
-        #     'autostart',
-        #     default_value='true',
-        #     description='Automatically startup the nav2 stack'),
-        # DeclareLaunchArgument(
-        #     'params_file',
-        #     default_value=os.path.join(
-        #         get_package_share_directory(package_name),
-        #         'config',
-        #         'nav2_params.yaml'),
-        #     description='Full path to the ROS2 parameters file to use'),
-
-        # RegisterEventHandler(
-        #     event_handler=OnProcessExit(target_action=controller_manager,
-        #                                 on_exit=load_joint_state_controller)),
-        # RegisterEventHandler(event_handler=OnProcessExit(
-        #     target_action=controller_manager,
-        #     on_exit=[load_omni_wheel_controller],
-        # )),
         declare_world_launch_arg,
         declare_rviz_launch_arg,
         gazebo,
         node_robot_state_publisher,
         spawn_entity,
-        # load_omni_wheel_controller,
-        # load_joint_state_controller,
         delayed_controller_manager,
         delayed_load_omni_wheel_controller_handler,
         delayed_load_joint_state_controller_handler,
-        # bridge,
         velocity_converter,
         rviz,
+        joystick,
         slam_toolbox,
-        # Node(package='nav2_map_server',
-        #      executable='map_server',
-        #      name='map_server',
-        #      output='screen',
-        #      parameters=[configured_params],
-        #      remappings=remappings),
-        # Node(package='nav2_amcl',
-        #      executable='amcl',
-        #      name='amcl',
-        #      output='screen',
-        #      parameters=[configured_params],
-        #      remappings=remappings),
-        # Node(package='nav2_lifecycle_manager',
-        #      executable='lifecycle_manager',
-        #      name='lifecycle_manager_localization',
-        #      output='screen',
-        #      parameters=[{
-        #          'use_sim_time': use_sim_time
-        #      },
-        #                  {
-        #                      'autostart': autostart
-        #                  },use_sim_time
-        #                  {
-        #                      'node_names': lifecycle_nodes
-        #                  }])
+        realsense,
     ])

@@ -253,6 +253,7 @@ controller_interface::CallbackReturn OmniWheelController::on_configure(
     RCLCPP_INFO(logger, "Parameters were updated");
   }
 
+  RCLCPP_INFO(logger, "Number of wheels: %ld", params_.omni_wheel_names.size());
   if (params_.omni_wheel_names.empty())
   {
     RCLCPP_ERROR(logger, "Wheel names parameters are empty!");

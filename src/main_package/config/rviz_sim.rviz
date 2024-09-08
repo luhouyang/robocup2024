@@ -25,7 +25,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -164,8 +164,6 @@ Visualization Manager:
           Value: true
         level_3_center_link:
           Value: true
-        map:
-          Value: true
         mic_base_link:
           Value: true
         mic_link:
@@ -177,6 +175,8 @@ Visualization Manager:
         odom:
           Value: true
         stop_button_link:
+          Value: true
+        temparm_link:
           Value: true
         wheel0_housing_link:
           Value: true
@@ -192,8 +192,6 @@ Visualization Manager:
       Show Axes: true
       Show Names: false
       Tree:
-        map:
-          {}
         odom:
           base_link:
             base_footprint:
@@ -271,6 +269,8 @@ Visualization Manager:
               level_2_base_plate_y_link:
                 {}
               network_link:
+                {}
+              temparm_link:
                 {}
             level_3_center_link:
               camera_2_fixture_link:
@@ -631,6 +631,11 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        temparm_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         wheel0_housing_link:
           Alpha: 1
           Show Axes: false
@@ -762,10 +767,31 @@ Visualization Manager:
         Value: /map_updates
       Use Timestamp: false
       Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz_default_plugins/Map
+      Color Scheme: costmap
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /global_costmap/costmap
+      Update Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /global_costmap/costmap_updates
+      Use Timestamp: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
-    Fixed Frame: map
+    Fixed Frame: base_link
     Frame Rate: 30
   Name: root
   Tools:
@@ -801,6 +827,7 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /clicked_point
+    - Class: nav2_rviz_plugins/GoalTool
   Transformation:
     Current:
       Class: rviz_default_plugins/TF
@@ -808,7 +835,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 8.485085487365723
+      Distance: 9.217184066772461
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -823,10 +850,10 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.9147962927818298
+      Pitch: 1.0347965955734253
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 6.263583183288574
+      Yaw: 0.025397665798664093
     Saved: ~
 Window Geometry:
   Displays:

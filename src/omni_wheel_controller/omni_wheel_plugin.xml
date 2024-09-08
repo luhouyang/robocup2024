@@ -1,7 +1,17 @@
 <library path="omni_wheel_controller">
-  <class name="omni_wheel_controller/OmniWheelController" type="omni_wheel_controller::OmniWheelController" base_class_type="controller_interface::ControllerInterface">
-  <description>
-    The omni wheel controller transforms linear and angular velocity messages into signals for each wheel(s) for a omni wheel robot.
-  </description>
+  <class name="omni_wheel_controller/RobotSystem"
+    type="omni_wheel_controller::RobotSystem"
+    base_class_type="hardware_interface::SystemInterface">
+    <description>
+      Robot hardware plugin for omni wheel.
+    </description>
+  </class>
+  <class name="omni_wheel_controller/OmniWheelController"
+    type="omni_wheel_controller::OmniWheelController"
+    base_class_type="controller_interface::ControllerInterface">
+    <description>
+      The omni wheel controller transforms linear and angular velocity messages into signals for each wheel(s) for a
+      omni wheel robot.
+    </description>
   </class>
 </library>
